@@ -35,8 +35,7 @@ import io.spring.initializr.metadata.InitializrMetadataBuilder;
 import io.spring.initializr.metadata.InitializrMetadataProvider;
 import io.spring.initializr.metadata.InitializrProperties;
 import io.spring.initializr.web.controller.CommandLineMetadataController;
-import io.spring.initializr.web.controller.DefaultProjectGenerationController;
-import io.spring.initializr.web.controller.ProjectGenerationController;
+import io.spring.initializr.web.controller.LoCoRepoProjectController;
 import io.spring.initializr.web.controller.ProjectMetadataController;
 import io.spring.initializr.web.controller.SpringCliDistributionController;
 import io.spring.initializr.web.project.DefaultProjectRequestPlatformVersionTransformer;
@@ -138,15 +137,13 @@ public class InitializrAutoConfiguration {
 		}
 
 		@Bean
-		@ConditionalOnMissingBean
-		ProjectGenerationController<ProjectRequest> projectGenerationController(
-				InitializrMetadataProvider metadataProvider,
+		LoCoRepoProjectController projectGenerationController(InitializrMetadataProvider metadataProvider,
 				ObjectProvider<ProjectRequestPlatformVersionTransformer> platformVersionTransformer,
 				ApplicationContext applicationContext) {
 			ProjectGenerationInvoker<ProjectRequest> projectGenerationInvoker = new ProjectGenerationInvoker<>(
 					applicationContext, new DefaultProjectRequestToDescriptionConverter(platformVersionTransformer
 							.getIfAvailable(DefaultProjectRequestPlatformVersionTransformer::new)));
-			return new DefaultProjectGenerationController(metadataProvider, projectGenerationInvoker);
+			return new LoCoRepoProjectController(metadataProvider, projectGenerationInvoker);
 		}
 
 		@Bean

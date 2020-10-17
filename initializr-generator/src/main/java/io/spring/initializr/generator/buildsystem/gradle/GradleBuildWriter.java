@@ -95,7 +95,7 @@ public abstract class GradleBuildWriter {
 
 	protected abstract void writeConfigurations(IndentingWriter writer, GradleConfigurationContainer configurations);
 
-	protected final void writeRepositories(IndentingWriter writer, GradleBuild build) {
+	protected void writeRepositories(IndentingWriter writer, GradleBuild build) {
 		writeNestedCollection(writer, "repositories", build.repositories().items().collect(Collectors.toList()),
 				this::repositoryAsString);
 	}
@@ -119,7 +119,7 @@ public abstract class GradleBuildWriter {
 		return versionProperty.isInternal() ? versionProperty.toCamelCaseFormat() : versionProperty.toStandardFormat();
 	}
 
-	private void writeDependencies(IndentingWriter writer, GradleBuild build) {
+	protected void writeDependencies(IndentingWriter writer, GradleBuild build) {
 		Set<Dependency> sortedDependencies = new LinkedHashSet<>();
 		DependencyContainer dependencies = build.dependencies();
 		sortedDependencies

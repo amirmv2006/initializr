@@ -6,13 +6,21 @@ initializr:
           id: web
           description: Servlet web application with Spring MVC and Tomcat
   types:
+    - name: MPS Project
+      id: mps-project
+      description: Generate a MPS project archive
+      tags:
+        build: mps
+        format: project
+      default: true
+      action: /mps-gradle.zip
     - name: Maven Project
       id: maven-project
       description: Generate a Maven based project archive
       tags:
         build: maven
         format: project
-      default: true
+      default: false
       action: /starter.zip
     - name: Gradle Project
       id: gradle-project
@@ -36,14 +44,8 @@ initializr:
       name: 8
       default: true
   languages:
-    - name: Java
-      id: java
+    - name: MPS
+      id: mps
       default: true
-    - name: Kotlin
-      id: kotlin
-      default: false
-    - name: Groovy
-      id: groovy
-      default: false
   group-id:
     value: org.acme

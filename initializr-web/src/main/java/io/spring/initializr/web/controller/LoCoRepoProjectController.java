@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2020 the original author or authors.
+ * Copyright 2012-2019 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package io.spring.initializr.web.controller;
 
 import java.io.File;
@@ -32,6 +31,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import io.spring.initializr.generator.buildsystem.BuildSystem;
 import io.spring.initializr.generator.buildsystem.maven.MavenBuildSystem;
+import io.spring.initializr.generator.language.Language;
 import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.metadata.InitializrMetadata;
 import io.spring.initializr.metadata.InitializrMetadataProvider;
@@ -39,6 +39,7 @@ import io.spring.initializr.web.project.InvalidProjectRequestException;
 import io.spring.initializr.web.project.ProjectGenerationInvoker;
 import io.spring.initializr.web.project.ProjectGenerationResult;
 import io.spring.initializr.web.project.ProjectRequest;
+import io.spring.initializr.web.project.WebProjectRequest;
 import org.apache.commons.compress.archivers.ArchiveEntry;
 import org.apache.commons.compress.archivers.ArchiveOutputStream;
 import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
@@ -61,42 +62,33 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
- * Base {@link Controller} that provides endpoints for project generation.
+ * MPS {@link Language}.
  *
- * @param <R> the {@link ProjectRequest} type to use to bind request parameters
- * @author Stephane Nicoll
+ * @author Amir MV
  */
 @Controller
-public abstract class ProjectGenerationController<R extends ProjectRequest> {
+public class LoCoRepoProjectController {
 
 	private static final Log logger = LogFactory.getLog(ProjectGenerationController.class);
 
 	private final InitializrMetadataProvider metadataProvider;
 
-	private final ProjectGenerationInvoker<R> projectGenerationInvoker;
+	private final ProjectGenerationInvoker<ProjectRequest> projectGenerationInvoker;
 
-	public ProjectGenerationController(InitializrMetadataProvider metadataProvider,
-			ProjectGenerationInvoker<R> projectGenerationInvoker) {
+	public LoCoRepoProjectController(InitializrMetadataProvider metadataProvider,
+			ProjectGenerationInvoker<ProjectRequest> projectGenerationInvoker) {
 		this.metadataProvider = metadataProvider;
 		this.projectGenerationInvoker = projectGenerationInvoker;
 	}
 
 	@ModelAttribute
-	R projectRequest(@RequestHeader Map<String, String> headers,
+	ProjectRequest projectRequest(@RequestHeader Map<String, String> headers,
 			@RequestParam(name = "style", required = false) String style) {
 		if (style != null) {
 			throw new InvalidProjectRequestException("Dependencies must be specified using 'dependencies'");
 		}
 		return projectRequest(headers);
 	}
-
-	/**
-	 * Create an initialized {@link ProjectRequest} instance to use to bind the parameters
-	 * of a project generation request.
-	 * @param headers the headers of the request
-	 * @return a new {@link ProjectRequest} instance
-	 */
-	public abstract R projectRequest(@RequestHeader Map<String, String> headers);
 
 	protected InitializrMetadata getMetadata() {
 		return this.metadataProvider.get();
@@ -109,21 +101,21 @@ public abstract class ProjectGenerationController<R extends ProjectRequest> {
 	}
 
 	@RequestMapping(path = { "/pom", "/pom.xml" })
-	public ResponseEntity<byte[]> pom(R request) {
+	public ResponseEntity<byte[]> pom(ProjectRequest request) {
 		request.setType("maven-build");
 		byte[] mavenPom = this.projectGenerationInvoker.invokeBuildGeneration(request);
 		return createResponseEntity(mavenPom, "application/octet-stream", "pom.xml");
 	}
 
 	@RequestMapping(path = { "/build", "/build.gradle" })
-	public ResponseEntity<byte[]> gradle(R request) {
+	public ResponseEntity<byte[]> gradle(ProjectRequest request) {
 		request.setType("gradle-build");
 		byte[] gradleBuild = this.projectGenerationInvoker.invokeBuildGeneration(request);
 		return createResponseEntity(gradleBuild, "application/octet-stream", "build.gradle");
 	}
 
 	@RequestMapping("/starter.zip")
-	public ResponseEntity<byte[]> springZip(R request) throws IOException {
+	public ResponseEntity<byte[]> springZip(ProjectRequest request) throws IOException {
 		ProjectGenerationResult result = this.projectGenerationInvoker.invokeProjectStructureGeneration(request);
 		Path archive = createArchive(result, "zip", ZipArchiveOutputStream::new, ZipArchiveEntry::new,
 				ZipArchiveEntry::setUnixMode);
@@ -131,7 +123,7 @@ public abstract class ProjectGenerationController<R extends ProjectRequest> {
 	}
 
 	@RequestMapping(path = "/starter.tgz", produces = "application/x-compress")
-	public ResponseEntity<byte[]> springTgz(R request) throws IOException {
+	public ResponseEntity<byte[]> springTgz(ProjectRequest request) throws IOException {
 		ProjectGenerationResult result = this.projectGenerationInvoker.invokeProjectStructureGeneration(request);
 		Path archive = createArchive(result, "tar.gz", this::createTarArchiveOutputStream, TarArchiveEntry::new,
 				TarArchiveEntry::setMode);
@@ -192,7 +184,7 @@ public abstract class ProjectGenerationController<R extends ProjectRequest> {
 		return UnixStat.FILE_FLAG | (entryName.equals(wrapperScript) ? 0755 : UnixStat.DEFAULT_FILE_PERM);
 	}
 
-	protected String generateFileName(R request, String extension) {
+	protected String generateFileName(ProjectRequest request, String extension) {
 		String candidate = (StringUtils.hasText(request.getArtifactId()) ? request.getArtifactId()
 				: this.metadataProvider.get().getArtifactId().getContent());
 		String tmp = candidate.replaceAll(" ", "_");
@@ -223,6 +215,30 @@ public abstract class ProjectGenerationController<R extends ProjectRequest> {
 		String contentDispositionValue = "attachment; filename=\"" + fileName + "\"";
 		return ResponseEntity.ok().header("Content-Type", contentType)
 				.header("Content-Disposition", contentDispositionValue).body(content);
+	}
+
+	public ProjectRequest projectRequest(Map<String, String> headers) {
+		WebProjectRequest request = new WebProjectRequest();
+		request.getParameters().putAll(headers);
+		request.initialize(getMetadata());
+		return request;
+	}
+
+	@RequestMapping("/mps-gradle.zip")
+	public ResponseEntity<byte[]> locoRepoZip(ProjectRequest request) throws IOException {
+		ProjectGenerationResult result = this.projectGenerationInvoker.invokeProjectStructureGeneration(request);
+		Path archive = createArchive(result, "zip", ZipArchiveOutputStream::new, ZipArchiveEntry::new,
+				ZipArchiveEntry::setUnixMode);
+		return upload(archive, result.getRootDirectory(), generateFileName(request, "zip"), "application/zip");
+	}
+
+	@RequestMapping(path = "/mps-gradle.tgz", produces = "application/x-compress")
+	public ResponseEntity<byte[]> locoRepoTgz(ProjectRequest request) throws IOException {
+		ProjectGenerationResult result = this.projectGenerationInvoker.invokeProjectStructureGeneration(request);
+		Path archive = createArchive(result, "tar.gz", this::createTarArchiveOutputStream, TarArchiveEntry::new,
+				TarArchiveEntry::setMode);
+		return upload(archive, result.getRootDirectory(), generateFileName(request, "tar.gz"),
+				"application/x-compress");
 	}
 
 }

@@ -57,7 +57,7 @@ public class GroovyDslGradleBuildWriter extends GradleBuildWriter {
 		writeNestedMap(writer, "ext", build.getBuildscript().getExt(), (key, value) -> key + " = " + value);
 	}
 
-	private void writeBuildscriptRepositories(IndentingWriter writer, GradleBuild build) {
+	protected void writeBuildscriptRepositories(IndentingWriter writer, GradleBuild build) {
 		writeRepositories(writer, build);
 	}
 

@@ -32,7 +32,7 @@ import io.spring.initializr.generator.project.contributor.ProjectContributor;
  * @author Andy Wilkinson
  * @author Jean-Baptiste Nizet
  */
-class SettingsGradleProjectContributor implements ProjectContributor {
+public class SettingsGradleProjectContributor implements ProjectContributor {
 
 	private final GradleBuild build;
 

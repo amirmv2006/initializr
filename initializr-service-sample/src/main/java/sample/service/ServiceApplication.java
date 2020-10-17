@@ -16,9 +16,19 @@
 
 package sample.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.spring.initializr.metadata.InitializrMetadataBuilder;
+import io.spring.initializr.metadata.InitializrMetadataProvider;
+import io.spring.initializr.metadata.InitializrProperties;
+import io.spring.initializr.web.support.DefaultInitializrMetadataProvider;
+import io.spring.initializr.web.support.InitializrMetadataUpdateStrategy;
+import io.spring.initializr.web.support.SaganInitializrMetadataUpdateStrategy;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 /**
@@ -31,8 +41,65 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @EnableAsync
 public class ServiceApplication {
 
+	@Bean
+	public SaganInitializrMetadataUpdateStrategy initializrMetadataUpdateStrategy(
+			RestTemplateBuilder restTemplateBuilder, ObjectMapper objectMapper) {
+		return new SaganInitializrMetadataUpdateStrategy(restTemplateBuilder.build(), objectMapper);
+	}
+
+	// @Bean
+	// public DependencyManagementVersionResolver dependencyManagementVersionResolver()
+	// throws IOException {
+	// return new
+	// CacheableDependencyManagementVersionResolver(DependencyManagementVersionResolver
+	// .withCacheLocation(Files.createTempDirectory("version-resolver-cache-")));
+	// }
+
+	@Bean
+	InitializrMetadataProvider customInitializrMetadataProvider(InitializrProperties initializrProperties,
+			InitializrMetadataUpdateStrategy initializrMetadataUpdateStrategy) {
+		return new DefaultInitializrMetadataProvider(
+				InitializrMetadataBuilder.fromInitializrProperties(initializrProperties)
+						.withInitializrProperties(new LoCoRepoInitializrProperties(), true).build(),
+				initializrMetadataUpdateStrategy);
+	}
+
 	public static void main(String[] args) {
 		SpringApplication.run(ServiceApplication.class, args);
+	}
+
+	private static class LoCoRepoInitializrProperties extends InitializrProperties {
+
+		@Override
+		public SimpleElement getGroupId() {
+			return new SimpleElement("ir.amv.snippets");
+		}
+
+//		@Override
+//		public SimpleElement getArtifactId() {
+//			return new SimpleElement("my-loco-project");
+//		}
+
+		@Override
+		public SimpleElement getVersion() {
+			return new SimpleElement("1-SNAPSHOT");
+		}
+
+//		@Override
+//		public SimpleElement getName() {
+//			return new SimpleElement("my-loco-project");
+//		}
+
+		@Override
+		public SimpleElement getDescription() {
+			return new SimpleElement("My LoCoRepo Project");
+		}
+
+		@Override
+		public SimpleElement getPackageName() {
+			return new SimpleElement("ir.amv.snippets.loco");
+		}
+
 	}
 
 }

@@ -59,6 +59,7 @@
 		<module>initializr-service-sample</module>
 		<module>initializr-version-resolver</module>
 		<module>initializr-web</module>
+		<module>initializr-locorepo</module>
 	</modules>
 
 	<build>
