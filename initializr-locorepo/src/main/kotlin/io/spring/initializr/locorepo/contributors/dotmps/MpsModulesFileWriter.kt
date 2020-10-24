@@ -4,7 +4,9 @@ import io.spring.initializr.locorepo.contributors.ProjectGenerationContext
 import java.nio.file.Path
 
 fun Path.writeModulesXml(context: ProjectGenerationContext) {
-    this.toFile().writeText("""<?xml version="1.0" encoding="UTF-8"?>
+    //language=XML
+    this.toFile().writeText("""
+        <?xml version="1.0" encoding="UTF-8"?>
         <project version="4">
           <component name="MPSProject">
             <projectModules>

@@ -35,7 +35,7 @@ public abstract class GradleSettingsWriter {
 	 * @param writer the writer to use
 	 * @param build the gradle build to write
 	 */
-	public final void writeTo(IndentingWriter writer, GradleBuild build) {
+	public void writeTo(IndentingWriter writer, GradleBuild build) {
 		writePluginManagement(writer, build);
 		writer.println("rootProject.name = " + wrapWithQuotes(build.getSettings().getArtifact()));
 	}

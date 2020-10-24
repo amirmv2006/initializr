@@ -17,20 +17,23 @@ package io.spring.initializr.generator.spring.build.gradle
 
 import io.spring.initializr.generator.buildsystem.BuildItemResolver
 import io.spring.initializr.generator.buildsystem.MavenRepository
-import io.spring.initializr.generator.buildsystem.gradle.*
+import io.spring.initializr.generator.buildsystem.MpsBuild
+import io.spring.initializr.generator.buildsystem.MpsBuildSystem
+import io.spring.initializr.generator.buildsystem.gradle.GradleMultiProjectSettingsWriter
+import io.spring.initializr.generator.buildsystem.gradle.GroovyDslGradleBuildWriter
+import io.spring.initializr.generator.buildsystem.gradle.MpsBuildWriter
+import io.spring.initializr.generator.buildsystem.gradle.MpsPropertiesGradleCustomizer
 import io.spring.initializr.generator.condition.ConditionalOnBuildSystem
 import io.spring.initializr.generator.io.IndentingWriterFactory
 import io.spring.initializr.generator.spring.build.BuildCustomizer
 import io.spring.initializr.generator.spring.util.LambdaSafe
-import io.spring.initializr.generator.buildsystem.MpsBuild
-import io.spring.initializr.generator.buildsystem.MpsBuildSystem
-import io.spring.initializr.locorepo.contributors.MpsBuildStaticFileContributor
-import io.spring.initializr.locorepo.contributors.ProjectBuildScriptContributor
+import io.spring.initializr.locorepo.contributors.*
 import io.spring.initializr.metadata.InitializrMetadata
 import org.springframework.beans.factory.ObjectProvider
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.core.OrderComparator
+import java.util.*
 import kotlin.streams.toList
 
 @Configuration
@@ -72,8 +75,34 @@ class LocoRepoAutoConfig(private val indentingWriterFactory: IndentingWriterFact
     }
 
     @Bean
-    fun buildScriptContributor(metadata: InitializrMetadata): ProjectBuildScriptContributor {
-        return ProjectBuildScriptContributor(metadata)
+    fun projectGenerationContext(initializerMetadata: InitializrMetadata): ProjectGenerationContext {
+        val buildModuleName = "${initializerMetadata.groupId.content}.${initializerMetadata.artifactId.content}.build"
+        val buildModule = MpsModule(
+                id = UUID.randomUUID(),
+                name = buildModuleName,
+                moduleVersion = 0,
+                models = listOf(MpsModel(
+                        UUID.randomUUID(),
+                        buildModuleName,
+                        0
+                ))
+        )
+        val languageModule = LanguageModule(
+                id = UUID.randomUUID(),
+                name = "${initializerMetadata.groupId.content}.${initializerMetadata.artifactId.content}.lang",
+                moduleVersion = 0
+        )
+        return ProjectGenerationContext(initializerMetadata, buildModule, languageModule)
+    }
+
+    @Bean
+    fun buildScriptContributor(context: ProjectGenerationContext): ProjectBuildScriptContributor {
+        return ProjectBuildScriptContributor(context)
+    }
+
+    @Bean
+    fun languageContributor(context: ProjectGenerationContext): LanguageFileContributor {
+        return LanguageFileContributor(context)
     }
 
     @Bean
@@ -88,9 +117,14 @@ class LocoRepoAutoConfig(private val indentingWriterFactory: IndentingWriterFact
     }
 
     @Bean
-    fun settingsGradleProjectContributor(build: MpsBuild): SettingsGradleProjectContributor {
+    fun settingsGradleProjectContributor(build: MpsBuild, context: ProjectGenerationContext): SettingsGradleProjectContributor {
         return SettingsGradleProjectContributor(build, indentingWriterFactory,
-                GroovyDslGradleSettingsWriter(), "settings.gradle")
+                GradleMultiProjectSettingsWriter(context), "settings.gradle")
+    }
+
+    @Bean
+    fun locoRepoGradleGitIgnoreCustomizer(): LocoRepoGradleGitIgnoreCustomizer {
+        return LocoRepoGradleGitIgnoreCustomizer()
     }
 
     @Bean
