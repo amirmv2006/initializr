@@ -49,3 +49,16 @@ initializr:
       default: true
   group-id:
     value: org.acme
+loco:
+  repo:
+    initializr:
+      group-id:
+        value: ir.amv.snippets
+      artifact-id:
+        value: my-loco-project
+      name:
+        value: my-loco-project
+      description:
+        value: My LoCoRepo Project
+      package-name:
+        value: ir.amv.snippets.my.loco.project

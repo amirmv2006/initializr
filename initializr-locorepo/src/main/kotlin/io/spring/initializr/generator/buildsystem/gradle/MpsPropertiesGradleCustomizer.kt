@@ -91,9 +91,20 @@ class MpsPropertiesGradleCustomizer : BuildCustomizer<MpsBuild> {
     }
 
     private fun addPrepareTask(build: MpsBuild) {
+        val downloadDependencies = GradleTask.Builder("downloadDependencies", COPY_TYPE)
+                .build()
+        build.tasks().addCustomTask(COPY_TYPE, downloadDependencies){
+            it.invoke("dependsOn", "configurations.mps")
+            it.nested("configurations.mps.files.each") { nested: GradleTask.Builder ->
+                nested.invoke("from", "zipTree(it)")
+            }
+            it.invoke("into", "'lib'")
+        }
+
         val taskType = ""
         val task = GradleTask.Builder("prepare", taskType)
                 .build()
+        task.dependsOn("downloadDependencies")
         build.tasks().addCustomTask(taskType, task){}
     }
 

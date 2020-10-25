@@ -3,7 +3,7 @@ package io.spring.initializr.generator.buildsystem.gradle
 import io.spring.initializr.generator.buildsystem.MavenRepository
 import io.spring.initializr.generator.buildsystem.MpsBuild
 import io.spring.initializr.generator.io.IndentingWriter
-import io.spring.initializr.generator.spring.build.gradle.LocoRepoAutoConfig
+import io.spring.initializr.generator.spring.build.gradle.LocoRepoGenerationConfig
 import org.springframework.util.ClassUtils
 import kotlin.streams.toList
 import kotlin.text.Typography.dollar
@@ -15,8 +15,6 @@ class MpsBuildWriter : GroovyDslGradleBuildWriter() {
         writeProperty(writer, "ext.mpsMinor", "2")
         writeProperty(writer, "ext.jbrSdkVersion", "11_0_8")
         writeProperty(writer, "ext.jbrBuild", "b1129.2")
-        writeProperty(writer, "ext[\"itemis.mps.gradle.ant.defaultScriptClasspath\"]", "configurations.ant_lib.fileCollection { true }")
-        writeProperty(writer, "ext[\"itemis.mps.gradle.ant.defaultScriptArgs\"]", "[\"-Dbasedir=.\"]")
     }
 
     override fun writeBuildscriptRepositories(writer: IndentingWriter, build: GradleBuild) {
@@ -37,10 +35,13 @@ class MpsBuildWriter : GroovyDslGradleBuildWriter() {
             writer.println("ant_lib \"org.apache.ant:ant-junit:1.10.1\"")
         }
         writer.println("}")
+
+        writer.println("ext[\"itemis.mps.gradle.ant.defaultScriptClasspath\"] = configurations.ant_lib.fileCollection { true }")
+        writer.println("ext[\"itemis.mps.gradle.ant.defaultScriptArgs\"] = [\"-Dbasedir=.\"]")
     }
 
     override fun repositoryAsString(repository: MavenRepository): String {
-        if (repository == LocoRepoAutoConfig.MPS_IVY) {
+        if (repository == LocoRepoGenerationConfig.MPS_IVY) {
             return """
                 ivy {
                     url "https://download.jetbrains.com/mps/${dollar}mpsMajor/"

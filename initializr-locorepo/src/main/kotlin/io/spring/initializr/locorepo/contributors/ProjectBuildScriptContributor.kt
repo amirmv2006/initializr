@@ -1,6 +1,7 @@
 package io.spring.initializr.locorepo.contributors
 
 import io.spring.initializr.generator.project.contributor.ProjectContributor
+import io.spring.initializr.locorepo.contributors.build.writeBuildBootstrapXml
 import io.spring.initializr.locorepo.contributors.build.writeBuildMps
 import io.spring.initializr.locorepo.contributors.build.writeBuildMsd
 import io.spring.initializr.locorepo.contributors.build.writeSubModuleBuildGradle
@@ -28,5 +29,6 @@ class ProjectBuildScriptContributor(private val context: ProjectGenerationContex
         dotMpsDir.resolve("modules.xml").writeModulesXml(context)
         dotMpsDir.resolve("workspace.xml").writeWorkspaceXml(context)
         buildScrRoot.resolve("build.gradle").writeSubModuleBuildGradle(context)
+        projectRoot.resolve("build-bootstrap.xml").writeBuildBootstrapXml(context)
     }
 }

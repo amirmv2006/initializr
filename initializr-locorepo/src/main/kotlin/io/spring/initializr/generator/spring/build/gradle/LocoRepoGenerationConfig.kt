@@ -38,7 +38,7 @@ import kotlin.streams.toList
 
 @Configuration
 @ConditionalOnBuildSystem(MpsBuildSystem.ID)
-class LocoRepoAutoConfig(private val indentingWriterFactory: IndentingWriterFactory) {
+class LocoRepoGenerationConfig(private val indentingWriterFactory: IndentingWriterFactory) {
     private val mbeddrRepo = MavenRepository
             .withIdAndUrl("maven", "https://projects.itemis.de/nexus/content/repositories/mbeddr")
             .name("maven")
@@ -76,7 +76,8 @@ class LocoRepoAutoConfig(private val indentingWriterFactory: IndentingWriterFact
 
     @Bean
     fun projectGenerationContext(initializerMetadata: InitializrMetadata): ProjectGenerationContext {
-        val buildModuleName = "${initializerMetadata.groupId.content}.${initializerMetadata.artifactId.content}.build"
+        val buildModuleName = "${initializerMetadata.packageName.content}.build"
+                .replace('-', '_')
         val buildModule = MpsModule(
                 id = UUID.randomUUID(),
                 name = buildModuleName,
@@ -87,9 +88,11 @@ class LocoRepoAutoConfig(private val indentingWriterFactory: IndentingWriterFact
                         0
                 ))
         )
+        val languageName = "${initializerMetadata.packageName.content}.lang"
+                .replace('-', '_')
         val languageModule = LanguageModule(
                 id = UUID.randomUUID(),
-                name = "${initializerMetadata.groupId.content}.${initializerMetadata.artifactId.content}.lang",
+                name = languageName,
                 moduleVersion = 0
         )
         return ProjectGenerationContext(initializerMetadata, buildModule, languageModule)

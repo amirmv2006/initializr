@@ -4,7 +4,7 @@ import io.spring.initializr.metadata.InitializrMetadata
 import java.nio.file.Path
 
 fun Path.projectAsFile(metadata: InitializrMetadata, postfix: String): Path {
-    return resolve("${metadata.groupId.content}.${metadata.artifactId.content}.$postfix")
+    return resolve("${metadata.packageName.content}.$postfix")
 }
 
 fun Path.projectAsDir(metadata: InitializrMetadata): Path {
