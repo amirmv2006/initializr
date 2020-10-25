@@ -5,6 +5,7 @@ import io.spring.initializr.locorepo.contributors.build.writeBuildMps
 import io.spring.initializr.locorepo.contributors.build.writeBuildMsd
 import io.spring.initializr.locorepo.contributors.build.writeSubModuleBuildGradle
 import io.spring.initializr.locorepo.contributors.dotmps.writeModulesXml
+import io.spring.initializr.locorepo.contributors.dotmps.writeWorkspaceXml
 import io.spring.initializr.locorepo.projectAsFile
 import io.spring.initializr.locorepo.resolveMulti
 import java.nio.file.Files
@@ -21,11 +22,11 @@ class ProjectBuildScriptContributor(private val context: ProjectGenerationContex
         val buildMsd = buildSolutionPath.projectAsFile(context.metadata, "build.msd")
         buildMsd.writeBuildMsd(context)
         val buildMps = modelsPath.projectAsFile(context.metadata, "build.mps")
+        buildMps.writeBuildMps(context)
         val dotMpsDir = projectRoot.resolve(".mps")
         Files.createDirectories(dotMpsDir)
-        buildMps.writeBuildMps(context)
-        val dotMps = dotMpsDir.resolve("modules.xml")
-        dotMps.writeModulesXml(context)
+        dotMpsDir.resolve("modules.xml").writeModulesXml(context)
+        dotMpsDir.resolve("workspace.xml").writeWorkspaceXml(context)
         buildScrRoot.resolve("build.gradle").writeSubModuleBuildGradle(context)
     }
 }
