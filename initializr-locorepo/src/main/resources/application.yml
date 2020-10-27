@@ -62,3 +62,7 @@ loco:
         value: My LoCoRepo Project
       package-name:
         value: ir.amv.snippets.my.loco.project
+spring:
+  cloud:
+    function:
+      definition: upper

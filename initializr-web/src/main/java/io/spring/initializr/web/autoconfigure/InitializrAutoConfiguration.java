@@ -125,55 +125,6 @@ public class InitializrAutoConfiguration {
 	}
 
 	/**
-	 * Initializr web configuration.
-	 */
-	@Configuration
-	@ConditionalOnWebApplication
-	static class InitializrWebConfiguration {
-
-		@Bean
-		InitializrWebConfig initializrWebConfig() {
-			return new InitializrWebConfig();
-		}
-
-		@Bean
-		LoCoRepoProjectController projectGenerationController(InitializrMetadataProvider metadataProvider,
-				ObjectProvider<ProjectRequestPlatformVersionTransformer> platformVersionTransformer,
-				ApplicationContext applicationContext) {
-			ProjectGenerationInvoker<ProjectRequest> projectGenerationInvoker = new ProjectGenerationInvoker<>(
-					applicationContext, new DefaultProjectRequestToDescriptionConverter(platformVersionTransformer
-							.getIfAvailable(DefaultProjectRequestPlatformVersionTransformer::new)));
-			return new LoCoRepoProjectController(metadataProvider, projectGenerationInvoker);
-		}
-
-		@Bean
-		@ConditionalOnMissingBean
-		ProjectMetadataController projectMetadataController(InitializrMetadataProvider metadataProvider,
-				DependencyMetadataProvider dependencyMetadataProvider) {
-			return new ProjectMetadataController(metadataProvider, dependencyMetadataProvider);
-		}
-
-		@Bean
-		@ConditionalOnMissingBean
-		CommandLineMetadataController commandLineMetadataController(InitializrMetadataProvider metadataProvider,
-				TemplateRenderer templateRenderer) {
-			return new CommandLineMetadataController(metadataProvider, templateRenderer);
-		}
-
-		@Bean
-		@ConditionalOnMissingBean
-		SpringCliDistributionController cliDistributionController(InitializrMetadataProvider metadataProvider) {
-			return new SpringCliDistributionController(metadataProvider);
-		}
-
-		@Bean
-		InitializrModule InitializrJacksonModule() {
-			return new InitializrModule();
-		}
-
-	}
-
-	/**
 	 * Initializr cache configuration.
 	 */
 	@Configuration
