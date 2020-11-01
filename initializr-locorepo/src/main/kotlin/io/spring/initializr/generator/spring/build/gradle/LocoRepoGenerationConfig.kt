@@ -25,10 +25,10 @@ import io.spring.initializr.generator.buildsystem.gradle.MpsBuildWriter
 import io.spring.initializr.generator.buildsystem.gradle.MpsPropertiesGradleCustomizer
 import io.spring.initializr.generator.condition.ConditionalOnBuildSystem
 import io.spring.initializr.generator.io.IndentingWriterFactory
+import io.spring.initializr.generator.project.ProjectDescription
 import io.spring.initializr.generator.spring.build.BuildCustomizer
 import io.spring.initializr.generator.spring.util.LambdaSafe
 import io.spring.initializr.locorepo.contributors.*
-import io.spring.initializr.metadata.InitializrMetadata
 import org.springframework.beans.factory.ObjectProvider
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -56,6 +56,7 @@ class LocoRepoGenerationConfig(private val indentingWriterFactory: IndentingWrit
         build.buildscript { it.dependency("de.itemis.mps:mps-gradle-plugin:1.2+") }
         build.buildscript { it.dependency("de.undercouch:gradle-download-task:4.0.4") }
         build.plugins().apply("de.undercouch.download")
+        build.plugins().apply("maven-publish")
         build.configurations().add("mps")
         build.configurations().add("ant_lib")
         val customizerList: List<BuildCustomizer<*>> = buildCustomizersMap.entries.stream()
@@ -75,8 +76,9 @@ class LocoRepoGenerationConfig(private val indentingWriterFactory: IndentingWrit
     }
 
     @Bean
-    fun projectGenerationContext(initializerMetadata: InitializrMetadata): ProjectGenerationContext {
-        val buildModuleName = "${initializerMetadata.packageName.content}.build"
+    fun projectGenerationContext(
+            description: ProjectDescription): ProjectGenerationContext {
+        val buildModuleName = "${description.packageName}.build"
                 .replace('-', '_')
         val buildModule = MpsModule(
                 id = UUID.randomUUID(),
@@ -88,14 +90,14 @@ class LocoRepoGenerationConfig(private val indentingWriterFactory: IndentingWrit
                         0
                 ))
         )
-        val languageName = "${initializerMetadata.packageName.content}.lang"
+        val languageName = "${description.packageName}.lang"
                 .replace('-', '_')
         val languageModule = LanguageModule(
                 id = UUID.randomUUID(),
                 name = languageName,
                 moduleVersion = 0
         )
-        return ProjectGenerationContext(initializerMetadata, buildModule, languageModule)
+        return ProjectGenerationContext(description, buildModule, languageModule)
     }
 
     @Bean
@@ -112,6 +114,12 @@ class LocoRepoGenerationConfig(private val indentingWriterFactory: IndentingWrit
     fun gradleBuildProjectContributor(buildWriter: GroovyDslGradleBuildWriter,
                                       build: MpsBuild): GradleBuildProjectContributor {
         return object : GradleBuildProjectContributor(buildWriter, build, indentingWriterFactory, "build.gradle") {}
+    }
+
+    @Bean
+    fun gradlePropertiesContributor(
+            context: ProjectGenerationContext): GradlePropertiesContributor {
+        return GradlePropertiesContributor(context);
     }
 
     @Bean

@@ -8,6 +8,6 @@ class GradleMultiProjectSettingsWriter(private val context: ProjectGenerationCon
         writer.println("rootProject.name = " + wrapWithQuotes(build.settings.artifact))
         writer.println()
         writer.println("include 'code:buildscripts'")
-        writer.println("include 'code:${context.metadata.artifactId.content}'")
+        writer.println("include 'code:${context.projectDescription.artifactId}'")
     }
 }

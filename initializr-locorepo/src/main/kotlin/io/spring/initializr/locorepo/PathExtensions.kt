@@ -1,10 +1,11 @@
 package io.spring.initializr.locorepo
 
+import io.spring.initializr.generator.project.ProjectDescription
 import io.spring.initializr.metadata.InitializrMetadata
 import java.nio.file.Path
 
-fun Path.projectAsFile(metadata: InitializrMetadata, postfix: String): Path {
-    return resolve("${metadata.packageName.content}.$postfix")
+fun Path.projectAsFile(projectDescription: ProjectDescription, postfix: String): Path {
+    return resolve("${projectDescription.packageName}.$postfix")
 }
 
 fun Path.projectAsDir(metadata: InitializrMetadata): Path {

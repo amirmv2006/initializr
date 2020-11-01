@@ -11,7 +11,7 @@ fun Path.writeModulesXml(context: ProjectGenerationContext) {
           <component name="MPSProject">
             <projectModules>
               <modulePath path="${'$'}PROJECT_DIR${'$'}/code/buildscripts/solutions/${context.buildModule.name}/${context.buildModule.name}.msd" folder="buildscripts" />
-              <modulePath path="${'$'}PROJECT_DIR${'$'}/code/${context.metadata.artifactId.content}/languages/${context.language.name}/${context.language.name}.mpl" folder="langs" />
+              <modulePath path="${'$'}PROJECT_DIR${'$'}/code/${context.projectDescription.artifactId}/languages/${context.language.name}/${context.language.name}.mpl" folder="langs" />
             </projectModules>
           </component>
         </project>

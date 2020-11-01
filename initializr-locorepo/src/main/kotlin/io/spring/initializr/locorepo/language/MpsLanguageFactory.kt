@@ -24,8 +24,8 @@ import io.spring.initializr.generator.language.LanguageFactory
  * @author Amir MV
  */
 class MpsLanguageFactory : LanguageFactory {
-    override fun createLanguage(id: String, jvmVersion: String): Language? {
-        return if (MpsLanguage.Companion.ID == id) {
+    override fun createLanguage(id: String, jvmVersion: String?): Language? {
+        return if (MpsLanguage.ID == id) {
             MpsLanguage(jvmVersion)
         } else null
     }

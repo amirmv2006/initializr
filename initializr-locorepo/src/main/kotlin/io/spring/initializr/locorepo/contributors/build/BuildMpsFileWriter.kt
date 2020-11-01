@@ -138,7 +138,7 @@ fun Path.writeBuildMps(context: ProjectGenerationContext) {
             </language>
           </registry>
           <node concept="1l3spW" id="1LFOa1yjumL">
-            <property role="TrG5h" value="${context.metadata.artifactId.content}_Bootstrap" />
+            <property role="TrG5h" value="${context.projectDescription.artifactId}_Bootstrap" />
             <property role="2DA0ip" value="../../../.." />
             <property role="turDy" value="build-bootstrap.xml" />
             <node concept="1E1JtA" id="1LFOa1yjuoF" role="3989C9">
@@ -217,7 +217,7 @@ fun Path.writeBuildMps(context: ProjectGenerationContext) {
           </node>
           <node concept="1l3spW" id="1LFOa1yjA${'$'}U">
             <property role="2DA0ip" value="../../../../" />
-            <property role="TrG5h" value="${context.metadata.artifactId.content}_Plugin" />
+            <property role="TrG5h" value="${context.projectDescription.artifactId}_Plugin" />
             <property role="turDy" value="build-plugin.xml" />
             <node concept="2sgV4H" id="1LFOa1yjAAu" role="1l3spa">
               <ref role="1l3spb" to="ffeo:3IKDaVZmzS6" resolve="mps" />
@@ -278,7 +278,7 @@ fun Path.writeBuildMps(context: ProjectGenerationContext) {
               <node concept="3981dG" id="3PswS${'$'}xW29D" role="39821P">
                 <node concept="3_J27D" id="3PswS${'$'}xW29E" role="Nbhlr">
                   <node concept="3Mxwew" id="3PswS${'$'}xW29H" role="3MwsjC">
-                    <property role="3MwjfP" value="${context.metadata.artifactId.content}.zip" />
+                    <property role="3MwjfP" value="${context.projectDescription.artifactId}.zip" />
                   </node>
                 </node>
                 <node concept="m${'$'}_wl" id="3PswS${'$'}xWsqQ" role="39821P">
@@ -333,7 +333,7 @@ fun Path.writeBuildMps(context: ProjectGenerationContext) {
               </node>
               <node concept="3_J27D" id="3PswS${'$'}xWhcR" role="m_cZH">
                 <node concept="3Mxwew" id="3PswS${'$'}xWhdt" role="3MwsjC">
-                  <property role="3MwjfP" value="${context.metadata.artifactId.content}" />
+                  <property role="3MwjfP" value="${context.projectDescription.artifactId}" />
                 </node>
               </node>
               <node concept="3_J27D" id="3PswS${'$'}xWhcT" role="m${'$'}_w8">
@@ -349,7 +349,7 @@ fun Path.writeBuildMps(context: ProjectGenerationContext) {
               </node>
             </node>
             <node concept="2G${'$'}12M" id="3PswS${'$'}xWtW6" role="3989C9">
-              <property role="TrG5h" value="${context.metadata.artifactId.content}-plugin" />
+              <property role="TrG5h" value="${context.projectDescription.artifactId}-plugin" />
               <node concept="1E1JtD" id="3PswS${'$'}xWtWg" role="2G${'$'}12L">
                 <property role="BnDLt" value="true" />
                 <property role="TrG5h" value="${context.language.name}" />
@@ -358,7 +358,7 @@ fun Path.writeBuildMps(context: ProjectGenerationContext) {
                   <node concept="2Ry0Ak" id="3PswS${'$'}xWtWv" role="iGT6I">
                     <property role="2Ry0Am" value="code" />
                     <node concept="2Ry0Ak" id="3PswS${'$'}xWtW${'$'}" role="2Ry0An">
-                      <property role="2Ry0Am" value="${context.metadata.artifactId.content}" />
+                      <property role="2Ry0Am" value="${context.projectDescription.artifactId}" />
                       <node concept="2Ry0Ak" id="3PswS${'$'}xWtWD" role="2Ry0An">
                         <property role="2Ry0Am" value="languages" />
                         <node concept="2Ry0Ak" id="3PswS${'$'}xWtWI" role="2Ry0An">
@@ -380,7 +380,7 @@ fun Path.writeBuildMps(context: ProjectGenerationContext) {
                       <node concept="2Ry0Ak" id="3PswS${'$'}xWtWQ" role="iGT6I">
                         <property role="2Ry0Am" value="code" />
                         <node concept="2Ry0Ak" id="3PswS${'$'}xWtWR" role="2Ry0An">
-                          <property role="2Ry0Am" value="${context.metadata.artifactId.content}" />
+                          <property role="2Ry0Am" value="${context.projectDescription.artifactId}" />
                           <node concept="2Ry0Ak" id="3PswS${'$'}xWtWS" role="2Ry0An">
                             <property role="2Ry0Am" value="languages" />
                             <node concept="2Ry0Ak" id="3PswS${'$'}xWtWT" role="2Ry0An">
@@ -410,7 +410,7 @@ fun Path.writeBuildMps(context: ProjectGenerationContext) {
                         <node concept="2Ry0Ak" id="3PswS${'$'}xWtX0" role="iGT6I">
                           <property role="2Ry0Am" value="code" />
                           <node concept="2Ry0Ak" id="3PswS${'$'}xWtX1" role="2Ry0An">
-                            <property role="2Ry0Am" value="${context.metadata.artifactId.content}" />
+                            <property role="2Ry0Am" value="${context.projectDescription.artifactId}" />
                             <node concept="2Ry0Ak" id="3PswS${'$'}xWtX2" role="2Ry0An">
                               <property role="2Ry0Am" value="languages" />
                               <node concept="2Ry0Ak" id="3PswS${'$'}xWtX3" role="2Ry0An">

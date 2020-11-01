@@ -1,10 +1,11 @@
 package io.spring.initializr.locorepo.contributors
 
+import io.spring.initializr.generator.project.ProjectDescription
 import io.spring.initializr.metadata.InitializrMetadata
 import java.util.*
 
 data class ProjectGenerationContext(
-        val metadata: InitializrMetadata,
+        val projectDescription: ProjectDescription,
         val buildModule: MpsModule,
         val language: LanguageModule
 )

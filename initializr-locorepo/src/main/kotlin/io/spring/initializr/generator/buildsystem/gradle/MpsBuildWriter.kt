@@ -38,6 +38,31 @@ class MpsBuildWriter : GroovyDslGradleBuildWriter() {
 
         writer.println("ext[\"itemis.mps.gradle.ant.defaultScriptClasspath\"] = configurations.ant_lib.fileCollection { true }")
         writer.println("ext[\"itemis.mps.gradle.ant.defaultScriptArgs\"] = [\"-Dbasedir=.\"]")
+
+        writePublishing(writer, build);
+    }
+
+    private fun writePublishing(writer: IndentingWriter, build: GradleBuild) {
+        writer.println("""
+            publishing {
+                publications {
+                    maven(MavenPublication) {
+                        artifact("build/artifacts/cats_Plugin/ir.amv.is.snippets.catslang.plugin.zip") {
+                            extension 'zip'
+                        }
+                    }
+                }
+                repositories {
+                    maven {
+                        name 'nexus'
+                        url repoUrl
+                        credentials {
+                            username project.repoUser
+                            password project.repoPassword
+                        }}
+                }
+            }
+        """.trimIndent())
     }
 
     override fun repositoryAsString(repository: MavenRepository): String {

@@ -11,7 +11,7 @@ class LanguageFileContributor(
         private val context: ProjectGenerationContext): ProjectContributor {
 
     override fun contribute(projectRoot: Path) {
-        val langScrRoot = projectRoot.resolveMulti("code", context.metadata.artifactId.content)
+        val langScrRoot = projectRoot.resolveMulti("code", context.projectDescription.artifactId)
         val langProjRoot = langScrRoot.resolveMulti("languages", context.language.name)
         Files.createDirectories(langProjRoot)
         langProjRoot.resolve("${context.language.name}.mpl").writeLanguageModule(context)
