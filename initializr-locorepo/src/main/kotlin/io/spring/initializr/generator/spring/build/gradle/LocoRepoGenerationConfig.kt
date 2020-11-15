@@ -123,8 +123,9 @@ class LocoRepoGenerationConfig(private val indentingWriterFactory: IndentingWrit
     }
 
     @Bean
-    fun mpsBuildWriter(): MpsBuildWriter {
-        return MpsBuildWriter()
+    fun mpsBuildWriter(
+            context: ProjectGenerationContext): MpsBuildWriter {
+        return MpsBuildWriter(context)
     }
 
     @Bean

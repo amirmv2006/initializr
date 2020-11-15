@@ -4,11 +4,12 @@ import io.spring.initializr.generator.buildsystem.MavenRepository
 import io.spring.initializr.generator.buildsystem.MpsBuild
 import io.spring.initializr.generator.io.IndentingWriter
 import io.spring.initializr.generator.spring.build.gradle.LocoRepoGenerationConfig
+import io.spring.initializr.locorepo.contributors.ProjectGenerationContext
 import org.springframework.util.ClassUtils
 import kotlin.streams.toList
 import kotlin.text.Typography.dollar
 
-class MpsBuildWriter : GroovyDslGradleBuildWriter() {
+class MpsBuildWriter(val context: ProjectGenerationContext) : GroovyDslGradleBuildWriter() {
 
     override fun writeJavaSourceCompatibility(writer: IndentingWriter, settings: GradleBuildSettings) {
         writeProperty(writer, "ext.mpsMajor", "2020.2")
@@ -47,7 +48,7 @@ class MpsBuildWriter : GroovyDslGradleBuildWriter() {
             publishing {
                 publications {
                     maven(MavenPublication) {
-                        artifact("build/artifacts/cats_Plugin/ir.amv.is.snippets.catslang.plugin.zip") {
+                        artifact("build/artifacts/${context.projectDescription.artifactId}_Plugin/${context.language.name}.zip") {
                             extension 'zip'
                         }
                     }
