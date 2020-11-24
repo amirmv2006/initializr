@@ -8,7 +8,11 @@ data class ProjectGenerationContext(
         val projectDescription: ProjectDescription,
         val buildModule: MpsModule,
         val language: LanguageModule
-)
+) {
+    fun projectQualifiedName() = "${projectDescription.groupId}.${projectDescription.artifactId}"
+
+    fun ideFileName() = projectDescription.artifactId
+}
 
 data class MpsModule(
         val id: UUID,

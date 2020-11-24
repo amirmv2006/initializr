@@ -1,6 +1,30 @@
 package io.spring.initializr.locorepo.contributors.build
 
+import io.spring.initializr.locorepo.contributors.ProjectGenerationContext
 import org.intellij.lang.annotations.Language
+
+fun buildModuleToOutputFolder(context: ProjectGenerationContext, mostNestedValue: String, id: String): String {
+    val lastChar = id[id.length - 1]
+    return treeNameToNestedTags(
+            treeName = context.buildModule.models[0].name,
+            theMostNested = """<property role="2Ry0Am" value="$mostNestedValue"/>""",
+            closingTag = "</node>",
+            indexedConsumer = { index, s -> """
+                <property role="2Ry0Am" value="$s"/>
+                <node concept="2Ry0Ak" id="${id.substring(0, id.length - 1) + lastChar.plus(index)}" role="2Ry0An">
+            """.trimIndent() }
+    )
+}
+
+fun treeNameToNestedTags(treeName: String, theMostNested: String, closingTag: String, indexedConsumer: (index: Int, String) -> String): String {
+    return treeName.splitToSequence('.')
+            .mapIndexed(indexedConsumer)
+            .joinToString("") { it } +
+            theMostNested +
+            treeName.splitToSequence('.')
+                    .map { closingTag }
+                    .joinToString("") { it }
+}
 
 @Language("XML")
 fun mpsBuildUsedLangs(): String = """

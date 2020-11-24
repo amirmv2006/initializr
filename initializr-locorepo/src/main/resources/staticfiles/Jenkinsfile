@@ -14,11 +14,11 @@ pipeline {
                             string(credentialsId: 'jenkins-nexus-password', variable: 'ORG_GRADLE_PROJECT_repoPassword')
                     ]) {
                         withEnv([
-                                'ORG_GRADLE_PROJECT_repoUrl=https://nexus.example.com/nexus/content/groups/public/',
+                                'ORG_GRADLE_PROJECT_repoUrl=http://localhost:8081/repository/maven-snapshots/',
                                 'ORG_GRADLE_PROJECT_repoUser=jenkins'
                         ]) {
                             script {
-                                sh "gradle buildPlugin --no-daemon"
+                                sh "gradle buildPlugin publish --no-daemon"
                                 archiveArtifacts "build/**/*.zip, build/**/*.jar"
                             } // script
                         }
@@ -38,7 +38,7 @@ pipeline {
                                 string(credentialsId: 'jenkins-nexus-password', variable: 'ORG_GRADLE_PROJECT_repoPassword')
                     ]) {
                         withEnv([
-                                'ORG_GRADLE_PROJECT_repoUrl=https://nexus.example.com/nexus/content/groups/public/',
+                                'ORG_GRADLE_PROJECT_repoUrl=http://localhost:8081/repository/maven-snapshots/',
                                 'ORG_GRADLE_PROJECT_repoUser=jenkins'
                         ]) {
                             script {

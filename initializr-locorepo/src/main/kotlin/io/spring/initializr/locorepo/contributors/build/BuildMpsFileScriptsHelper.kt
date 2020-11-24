@@ -9,7 +9,7 @@ fun buildMpsScriptsNode(context: ProjectGenerationContext): String = """
       <property role="26EafI" value="-"/>
       <property role="26FY9R" value="jetbrains.mps.Launcher"/>
       <property role="TrG5h" value="${context.projectDescription.artifactId}_Scripts"/>
-      <ref role="1_kbm${'$'}" node="SSBTh98unp" resolve="mps-reference 1.0"/>
+      <ref role="1_kbm${'$'}" node="SSBTh98unp" resolve="${context.ideFileName()} 1.0"/>
       <node concept="26EafG" id="SSBTh98uud" role="26Ea7d">
         <property role="26EafJ" value="lib/branding.jar"/>
       </node>

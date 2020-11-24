@@ -68,11 +68,11 @@ fun buildMpsPluginNode(context: ProjectGenerationContext): String = """
         <node concept="3981dG" id="3PswS${'$'}xW29D" role="39821P">
           <node concept="3_J27D" id="3PswS${'$'}xW29E" role="Nbhlr">
             <node concept="3Mxwew" id="3PswS${'$'}xW29H" role="3MwsjC">
-              <property role="3MwjfP" value="${context.language.name}.zip"/>
+              <property role="3MwjfP" value="${context.projectQualifiedName()}.zip"/>
             </node>
           </node>
           <node concept="m${'$'}_wl" id="3PswS${'$'}xWsqQ" role="39821P">
-            <ref role="m_rDy" node="3PswS${'$'}xWhcN" resolve="${context.language.name}"/>
+            <ref role="m_rDy" node="3PswS${'$'}xWhcN" resolve="${context.projectQualifiedName()}"/>
             <node concept="pUk6x" id="3PswS${'$'}xWsqU" role="pUk7w"/>
           </node>
         </node>
@@ -115,7 +115,7 @@ fun buildMpsPluginNode(context: ProjectGenerationContext): String = """
         </node>
       </node>
       <node concept="m${'$'}_wf" id="3PswS${'$'}xWhcN" role="3989C9">
-        <property role="m${'$'}_wk" value="${context.language.name}"/>
+        <property role="m${'$'}_wk" value="${context.projectQualifiedName()}"/>
         <node concept="3_J27D" id="3PswS${'$'}xWhcP" role="m${'$'}_yQ">
           <node concept="3Mxwew" id="3PswS${'$'}xWhdr" role="3MwsjC">
             <property role="3MwjfP" value="${context.language.name}"/>

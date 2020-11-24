@@ -48,7 +48,7 @@ class MpsBuildWriter(val context: ProjectGenerationContext) : GroovyDslGradleBui
             publishing {
                 publications {
                     maven(MavenPublication) {
-                        artifact("build/artifacts/${context.projectDescription.artifactId}_Plugin/${context.language.name}.zip") {
+                        artifact("build/artifacts/${context.projectDescription.artifactId}_Plugin/${context.projectQualifiedName()}.zip") {
                             extension 'zip'
                         }
                     }

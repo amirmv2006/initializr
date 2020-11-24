@@ -9,6 +9,7 @@ class LocoRepoGradleGitIgnoreCustomizer: GitIgnoreCustomizer {
         gitIgnore.general.add(".gradle/")
         gitIgnore.general.add("build/")
         gitIgnore.general.add("/lib")
+        gitIgnore.general.add("gradle.properties")
         gitIgnore.general.add("**/startup.properties")
 
         gitIgnore.general.add("**/.mps/workspace.xml")

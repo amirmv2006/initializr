@@ -38,12 +38,12 @@ fun buildMpsRCPNode(context: ProjectGenerationContext): String = """
         </node>
         <node concept="3_J27D" id="SSBTh98uny" role="2EtHGA">
           <node concept="3Mxwew" id="SSBTh98unz" role="3MwsjC">
-            <property role="3MwjfP" value="mps-reference"/>
+            <property role="3MwjfP" value="${context.ideFileName()}"/>
           </node>
         </node>
         <node concept="3_J27D" id="SSBTh98un${'$'}" role="2EtHGT">
           <node concept="3Mxwew" id="SSBTh98un_" role="3MwsjC">
-            <property role="3MwjfP" value="mps-reference"/>
+            <property role="3MwjfP" value="${context.ideFileName()}"/>
           </node>
         </node>
         <node concept="55IIr" id="SSBTh98unA" role="2EteIj">
@@ -77,7 +77,7 @@ fun buildMpsRCPNode(context: ProjectGenerationContext): String = """
         </node>
         <node concept="3_J27D" id="SSBTh98unL" role="2gvbiD">
           <node concept="3Mxwew" id="SSBTh98unM" role="3MwsjC">
-            <property role="3MwjfP" value="mps-reference"/>
+            <property role="3MwjfP" value="${context.ideFileName()}"/>
           </node>
         </node>
         <node concept="3_J27D" id="SSBTh98unN" role="HFo83">
@@ -268,7 +268,7 @@ fun buildMpsRCPNode(context: ProjectGenerationContext): String = """
               </node>
             </node>
             <node concept="1zDrgl" id="SSBTh98uoK" role="39821P">
-              <ref role="1zDrgn" node="SSBTh98unp" resolve="mps-reference 1.0"/>
+              <ref role="1zDrgn" node="SSBTh98unp" resolve="${context.ideFileName()} 1.0"/>
             </node>
           </node>
         </node>
