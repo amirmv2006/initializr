@@ -1,9 +1,9 @@
 package io.spring.initializr.locorepo.contributors.build
 
-import io.spring.initializr.locorepo.contributors.ProjectGenerationContext
+import io.spring.initializr.locorepo.contributors.LanguageGenerationContext
 import java.nio.file.Path
 
-fun Path.writeBuildMps(context: ProjectGenerationContext) {
+fun Path.writeBuildMps(context: LanguageGenerationContext) {
     //language=XML
     this.toFile().writeText("""<?xml version="1.0" encoding="UTF-8"?>
         <model ref="r:${context.buildModule.models[0].modelReference()}">

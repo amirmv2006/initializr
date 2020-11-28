@@ -1,9 +1,9 @@
 package io.spring.initializr.locorepo.contributors.gradleprop
 
-import io.spring.initializr.locorepo.contributors.ProjectGenerationContext
+import io.spring.initializr.locorepo.contributors.MpsProjectGenerationContext
 import java.nio.file.Path
 
-fun Path.writeGradleProperties(context: ProjectGenerationContext) {
+fun Path.writeGradleProperties(context: MpsProjectGenerationContext) {
     //language=Properties
     this.toFile().writeText("""
         repoUrl=http://YOUR_NEXUS_ADRESS/repository/maven-snapshots/

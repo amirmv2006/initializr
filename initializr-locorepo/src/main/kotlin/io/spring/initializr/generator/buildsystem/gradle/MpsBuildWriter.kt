@@ -4,18 +4,22 @@ import io.spring.initializr.generator.buildsystem.MavenRepository
 import io.spring.initializr.generator.buildsystem.MpsBuild
 import io.spring.initializr.generator.io.IndentingWriter
 import io.spring.initializr.generator.spring.build.gradle.LocoRepoGenerationConfig
-import io.spring.initializr.locorepo.contributors.ProjectGenerationContext
+import io.spring.initializr.locorepo.contributors.MpsProjectGenerationContext
 import org.springframework.util.ClassUtils
 import kotlin.streams.toList
 import kotlin.text.Typography.dollar
 
-class MpsBuildWriter(val context: ProjectGenerationContext) : GroovyDslGradleBuildWriter() {
+class MpsBuildWriter(
+        private val context: MpsProjectGenerationContext,
+        private val isLang: Boolean) : GroovyDslGradleBuildWriter() {
 
     override fun writeJavaSourceCompatibility(writer: IndentingWriter, settings: GradleBuildSettings) {
         writeProperty(writer, "ext.mpsMajor", "2020.2")
         writeProperty(writer, "ext.mpsMinor", "2")
-        writeProperty(writer, "ext.jbrSdkVersion", "11_0_8")
-        writeProperty(writer, "ext.jbrBuild", "b1129.2")
+        if (isLang) {
+            writeProperty(writer, "ext.jbrSdkVersion", "11_0_8")
+            writeProperty(writer, "ext.jbrBuild", "b1129.2")
+        }
     }
 
     override fun writeBuildscriptRepositories(writer: IndentingWriter, build: GradleBuild) {
@@ -32,15 +36,18 @@ class MpsBuildWriter(val context: ProjectGenerationContext) : GroovyDslGradleBui
         writer.println()
         writer.println("dependencies" + " {")
         writer.indented {
-            writer.println("mps \"com.jetbrains:MPS:\$mpsMajor.\$mpsMinor@zip\"")
-            writer.println("ant_lib \"org.apache.ant:ant-junit:1.10.1\"")
+            writer.println("mps \"com.jetbrains:mps:\$mpsMajor.\$mpsMinor@zip\"")
+            if (isLang) {
+                writer.println("ant_lib \"org.apache.ant:ant-junit:1.10.1\"")
+            }
         }
         writer.println("}")
 
-        writer.println("ext[\"itemis.mps.gradle.ant.defaultScriptClasspath\"] = configurations.ant_lib.fileCollection { true }")
-        writer.println("ext[\"itemis.mps.gradle.ant.defaultScriptArgs\"] = [\"-Dbasedir=.\"]")
-
-        writePublishing(writer, build);
+        if (isLang) {
+            writer.println("ext[\"itemis.mps.gradle.ant.defaultScriptClasspath\"] = configurations.ant_lib.fileCollection { true }")
+            writer.println("ext[\"itemis.mps.gradle.ant.defaultScriptArgs\"] = [\"-Dbasedir=.\"]")
+            writePublishing(writer, build);
+        }
     }
 
     private fun writePublishing(writer: IndentingWriter, build: GradleBuild) {
@@ -84,13 +91,15 @@ class MpsBuildWriter(val context: ProjectGenerationContext) : GroovyDslGradleBui
     }
 
     override fun writeConfigurations(writer: IndentingWriter, configurations: GradleConfigurationContainer) {
-        writer.println("allprojects {")
-        writer.indented {
-            writer.println("repositories {")
-            writer.indented { writer.println("mavenCentral()") }
+        if (isLang) {
+            writer.println("allprojects {")
+            writer.indented {
+                writer.println("repositories {")
+                writer.indented { writer.println("mavenCentral()") }
+                writer.println("}")
+            }
             writer.println("}")
         }
-        writer.println("}")
         super.writeConfigurations(writer, configurations)
     }
 

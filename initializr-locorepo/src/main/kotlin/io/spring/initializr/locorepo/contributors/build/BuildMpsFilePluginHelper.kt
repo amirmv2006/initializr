@@ -1,10 +1,10 @@
 package io.spring.initializr.locorepo.contributors.build
 
-import io.spring.initializr.locorepo.contributors.ProjectGenerationContext
+import io.spring.initializr.locorepo.contributors.LanguageGenerationContext
 import org.intellij.lang.annotations.Language
 
 @Language("XML")
-fun buildMpsPluginNode(context: ProjectGenerationContext): String = """
+fun buildMpsPluginNode(context: LanguageGenerationContext): String = """
     <node concept="1l3spW" id="1LFOa1yjA${'$'}U">
       <property role="2DA0ip" value="../../../../"/>
       <property role="TrG5h" value="${context.projectDescription.artifactId}_Plugin"/>

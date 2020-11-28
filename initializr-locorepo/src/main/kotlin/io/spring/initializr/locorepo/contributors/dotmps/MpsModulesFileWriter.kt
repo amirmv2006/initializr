@@ -1,9 +1,9 @@
 package io.spring.initializr.locorepo.contributors.dotmps
 
-import io.spring.initializr.locorepo.contributors.ProjectGenerationContext
+import io.spring.initializr.locorepo.contributors.LanguageGenerationContext
 import java.nio.file.Path
 
-fun Path.writeModulesXml(context: ProjectGenerationContext) {
+fun Path.writeModulesXml(context: LanguageGenerationContext) {
     //language=XML
     this.toFile().writeText("""
         <?xml version="1.0" encoding="UTF-8"?>

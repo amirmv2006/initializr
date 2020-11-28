@@ -8,7 +8,7 @@ import java.nio.file.Files
 import java.nio.file.Path
 
 class LanguageFileContributor(
-        private val context: ProjectGenerationContext): ProjectContributor {
+        private val context: LanguageGenerationContext): ProjectContributor {
 
     override fun contribute(projectRoot: Path) {
         val langScrRoot = projectRoot.resolveMulti("code", context.projectDescription.artifactId)

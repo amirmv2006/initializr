@@ -1,10 +1,10 @@
 package io.spring.initializr.locorepo.contributors.build
 
-import io.spring.initializr.locorepo.contributors.ProjectGenerationContext
+import io.spring.initializr.locorepo.contributors.LanguageGenerationContext
 import org.intellij.lang.annotations.Language
 
 @Language("XML")
-fun buildMpsScriptsNode(context: ProjectGenerationContext): String = """
+fun buildMpsScriptsNode(context: LanguageGenerationContext): String = """
     <node concept="26EafH" id="SSBTh98uuc">
       <property role="26EafI" value="-"/>
       <property role="26FY9R" value="jetbrains.mps.Launcher"/>

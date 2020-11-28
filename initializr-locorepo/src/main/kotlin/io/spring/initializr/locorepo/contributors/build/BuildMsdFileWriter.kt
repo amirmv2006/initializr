@@ -1,9 +1,9 @@
 package io.spring.initializr.locorepo.contributors.build
 
-import io.spring.initializr.locorepo.contributors.ProjectGenerationContext
+import io.spring.initializr.locorepo.contributors.LanguageGenerationContext
 import java.nio.file.Path
 
-fun Path.writeBuildMsd(context: ProjectGenerationContext) {
+fun Path.writeBuildMsd(context: LanguageGenerationContext) {
     //language=XML
     this.toFile().writeText("""
         <?xml version="1.0" encoding="UTF-8"?>

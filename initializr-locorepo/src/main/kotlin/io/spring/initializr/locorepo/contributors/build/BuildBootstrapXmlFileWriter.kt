@@ -1,9 +1,9 @@
 package io.spring.initializr.locorepo.contributors.build
 
-import io.spring.initializr.locorepo.contributors.ProjectGenerationContext
+import io.spring.initializr.locorepo.contributors.LanguageGenerationContext
 import java.nio.file.Path
 
-fun Path.writeBuildBootstrapXml(context: ProjectGenerationContext) {
+fun Path.writeBuildBootstrapXml(context: LanguageGenerationContext) {
     //language=XML
     this.toFile().writeText("""
         <project name="${context.projectDescription.artifactId}_Bootstrap" default="build">

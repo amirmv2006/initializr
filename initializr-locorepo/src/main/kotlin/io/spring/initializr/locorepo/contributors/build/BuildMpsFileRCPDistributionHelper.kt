@@ -1,10 +1,10 @@
 package io.spring.initializr.locorepo.contributors.build
 
-import io.spring.initializr.locorepo.contributors.ProjectGenerationContext
+import io.spring.initializr.locorepo.contributors.LanguageGenerationContext
 import org.intellij.lang.annotations.Language
 
 @Language("XML")
-fun buildMpsRCPDistributionNode(context: ProjectGenerationContext): String = """
+fun buildMpsRCPDistributionNode(context: LanguageGenerationContext): String = """
     <node concept="1l3spW" id="SSBTh98upq">
       <property role="TrG5h" value="${context.projectDescription.artifactId}_RCPDistrib"/>
       <property role="turDy" value="build-rcpdistrib.xml"/>

@@ -44,9 +44,12 @@ initializr:
       name: 8
       default: true
   languages:
-    - name: MPS
+    - name: MPS Language
       id: mps
       default: true
+    - name: MPS Model
+      id: mps-model
+      default: false
   group-id:
     value: org.acme
 loco:

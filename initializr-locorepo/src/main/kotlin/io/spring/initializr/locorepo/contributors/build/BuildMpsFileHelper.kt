@@ -1,9 +1,9 @@
 package io.spring.initializr.locorepo.contributors.build
 
-import io.spring.initializr.locorepo.contributors.ProjectGenerationContext
+import io.spring.initializr.locorepo.contributors.LanguageGenerationContext
 import org.intellij.lang.annotations.Language
 
-fun buildModuleToOutputFolder(context: ProjectGenerationContext, mostNestedValue: String, id: String): String {
+fun buildModuleToOutputFolder(context: LanguageGenerationContext, mostNestedValue: String, id: String): String {
     val lastChar = id[id.length - 1]
     return treeNameToNestedTags(
             treeName = context.buildModule.models[0].name,

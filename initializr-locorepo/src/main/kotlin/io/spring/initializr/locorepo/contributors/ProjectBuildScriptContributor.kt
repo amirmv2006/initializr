@@ -12,7 +12,7 @@ import io.spring.initializr.locorepo.resolveMulti
 import java.nio.file.Files
 import java.nio.file.Path
 
-class ProjectBuildScriptContributor(private val context: ProjectGenerationContext) : ProjectContributor {
+class ProjectBuildScriptContributor(private val context: LanguageGenerationContext) : ProjectContributor {
 
     override fun contribute(projectRoot: Path) {
         val buildScrRoot = projectRoot.resolveMulti("code", "buildscripts")

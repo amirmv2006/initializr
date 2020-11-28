@@ -1,10 +1,10 @@
 package io.spring.initializr.locorepo.contributors.dotmps
 
-import io.spring.initializr.locorepo.contributors.ProjectGenerationContext
+import io.spring.initializr.locorepo.contributors.LanguageGenerationContext
 import java.nio.file.Path
 import java.util.*
 
-fun Path.writeWorkspaceXml(context: ProjectGenerationContext) {
+fun Path.writeWorkspaceXml(context: LanguageGenerationContext) {
     val changeListId = UUID.randomUUID()
     //language=XML
     this.toFile().writeText("""
