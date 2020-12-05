@@ -7,7 +7,7 @@ fun Path.writeStructureMps(context: LanguageGenerationContext) {
     //language=XML
     this.toFile().writeText("""
         <?xml version="1.0" encoding="UTF-8"?>
-        <model ref="r:${context.language.structureModel.modelReference()}">
+        <model ref="${context.language.structureModel.modelReference()}">
           <persistence version="9" />
           <languages>
             <use id="c72da2b9-7cce-4447-8389-f407dc1158b7" name="jetbrains.mps.lang.structure" version="9" />

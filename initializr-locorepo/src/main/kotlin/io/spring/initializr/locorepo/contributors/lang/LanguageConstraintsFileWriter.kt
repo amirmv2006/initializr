@@ -7,7 +7,7 @@ fun Path.writeConstraintsMps(context: LanguageGenerationContext) {
     //language=XML
     this.toFile().writeText("""
         <?xml version="1.0" encoding="UTF-8"?>
-        <model ref="r:${context.language.constraintsModel.modelReference()}">
+        <model ref="${context.language.constraintsModel.modelReference()}">
           <persistence version="9" />
           <languages>
             <use id="5dae8159-ab99-46bb-a40d-0cee30ee7018" name="jetbrains.mps.lang.constraints.rules.kinds" version="0" />

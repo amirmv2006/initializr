@@ -8,6 +8,7 @@ class ModelGradleCustomizer: BuildCustomizer<MpsBuild> {
         build.tasks().customize("generate") {
             it.attribute("projectLocation", "projectDir")
             it.attribute("mpsConfig", "configurations.mps")
+            it.attribute("mpsPluginConfig", "configurations.mpsPlugin")
         }
     }
 }

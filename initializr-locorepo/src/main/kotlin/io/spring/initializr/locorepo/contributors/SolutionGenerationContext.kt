@@ -24,8 +24,12 @@ data class LanguageGenerationContext(
 }
 
 data class ModelGenerationContext(
-        val mpsProjectGenerationContext: MpsProjectGenerationContext
-)
+        val mpsProjectGenerationContext: MpsProjectGenerationContext,
+        val modelModule: GeneratedMpsModule
+) {
+    val projectDescription = mpsProjectGenerationContext.projectDescription
+    fun projectQualifiedName() = "${projectDescription.groupId}.${projectDescription.artifactId}"
+}
 
 data class GeneratedMpsModule(
         val id: UUID,
@@ -51,5 +55,5 @@ data class GeneratedLanguageModule(
 }
 
 data class GeneratedMpsModel(val id: UUID, val name: String, val modelVersion: Int) {
-    fun modelReference() = "${id}(${name})"
+    fun modelReference() = "r:${id}(${name})"
 }
