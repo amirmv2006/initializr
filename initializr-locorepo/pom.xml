@@ -17,6 +17,8 @@
   <properties>
     <main.basedir>${basedir}/..</main.basedir>
     <kotlin.version>1.4.10</kotlin.version>
+    <!--suppress UnresolvedMavenProperty -->
+    <docker.registry>${env.DOCKER_REGISTRY_BASE_URL:}</docker.registry>
   </properties>
   <scm>
     <url>${git.url}</url>
@@ -121,6 +123,21 @@
         </executions>
       </plugin>
       <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>repackage</id>
+            <goals>
+              <goal>repackage</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <mainClass>${start-class}</mainClass>
+        </configuration>
+      </plugin>
+      <plugin>
         <groupId>org.jetbrains.kotlin</groupId>
         <artifactId>kotlin-maven-plugin</artifactId>
         <version>${kotlin.version}</version>
@@ -157,20 +174,6 @@
           </dependency>
         </dependencies>
       </plugin>
-      <plugin>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-        <configuration>
-          <outputDirectory>target/deploy</outputDirectory>
-        </configuration>
-        <dependencies>
-          <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-function-adapter-gcp</artifactId>
-            <version>3.0.10.RELEASE</version>
-          </dependency>
-        </dependencies>
-      </plugin>
       <!-- to run function locally by `mvn function:run` -->
       <plugin>
         <groupId>com.google.cloud.functions</groupId>
@@ -182,21 +185,33 @@
         </configuration>
       </plugin>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jar-plugin</artifactId>
-        <configuration>
-          <archive>
-            <manifest>
-              <addClasspath>true</addClasspath>
-              <mainClass>io.spring.initializr.locorepo.config.LocoRepoConfigurationKt</mainClass>
-            </manifest>
-          </archive>
-        </configuration>
-      </plugin>
-      <plugin>
         <groupId>com.google.cloud.tools</groupId>
         <artifactId>appengine-maven-plugin</artifactId>
         <version>1.3.2</version>
+      </plugin>
+      <plugin>
+        <groupId>com.google.cloud.tools</groupId>
+        <artifactId>jib-maven-plugin</artifactId>
+        <version>1.7.0</version>
+        <configuration>
+          <to>
+            <image>gcr.io/loco-repo-298115/${project.artifactId}:latest</image>
+          </to>
+          <container>
+            <ports>
+              <port>8080</port>
+            </ports>
+            <useCurrentTimestamp>true</useCurrentTimestamp>
+          </container>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>deploy</phase>
+            <goals>
+              <goal>build</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
