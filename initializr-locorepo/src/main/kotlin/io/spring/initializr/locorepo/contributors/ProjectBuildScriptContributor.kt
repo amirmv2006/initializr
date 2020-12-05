@@ -6,7 +6,6 @@ import io.spring.initializr.locorepo.contributors.build.writeBuildMps
 import io.spring.initializr.locorepo.contributors.build.writeBuildMsd
 import io.spring.initializr.locorepo.contributors.build.writeSubModuleBuildGradle
 import io.spring.initializr.locorepo.contributors.dotmps.writeModulesXml
-import io.spring.initializr.locorepo.contributors.dotmps.writeWorkspaceXml
 import io.spring.initializr.locorepo.projectAsFile
 import io.spring.initializr.locorepo.resolveMulti
 import java.nio.file.Files
@@ -27,7 +26,6 @@ class ProjectBuildScriptContributor(private val context: LanguageGenerationConte
         val dotMpsDir = projectRoot.resolve(".mps")
         Files.createDirectories(dotMpsDir)
         dotMpsDir.resolve("modules.xml").writeModulesXml(context)
-        dotMpsDir.resolve("workspace.xml").writeWorkspaceXml(context)
         buildScrRoot.resolve("build.gradle").writeSubModuleBuildGradle(context)
         projectRoot.resolve("build-bootstrap.xml").writeBuildBootstrapXml(context)
     }
