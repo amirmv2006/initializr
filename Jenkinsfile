@@ -16,6 +16,9 @@ pipeline {
         } // steps
       } // stage Compile
       stage('Deploy') {
+        when {
+          expression { "${BRANCH_NAME}" == 'add-loco-repo' }
+        }
         agent { label 'master' }
         steps {
           withDockerContainer(
