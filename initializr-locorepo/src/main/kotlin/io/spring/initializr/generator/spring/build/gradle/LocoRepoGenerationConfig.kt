@@ -19,8 +19,7 @@ import io.spring.initializr.generator.buildsystem.BuildItemResolver
 import io.spring.initializr.generator.buildsystem.MavenRepository
 import io.spring.initializr.generator.buildsystem.MpsBuild
 import io.spring.initializr.generator.buildsystem.MpsBuildSystem
-import io.spring.initializr.generator.buildsystem.gradle.GradleMultiProjectSettingsWriter
-import io.spring.initializr.generator.buildsystem.gradle.GroovyDslGradleBuildWriter
+import io.spring.initializr.generator.buildsystem.gradle.*
 import io.spring.initializr.generator.condition.ConditionalOnBuildSystem
 import io.spring.initializr.generator.io.IndentingWriterFactory
 import io.spring.initializr.generator.project.ProjectDescription
@@ -35,7 +34,7 @@ import org.springframework.core.OrderComparator
 import kotlin.streams.toList
 
 @Configuration
-@ConditionalOnBuildSystem(MpsBuildSystem.ID)
+@ConditionalOnBuildSystem(value = MpsBuildSystem.ID, dialect = GradleBuildSystem.DIALECT_KOTLIN)
 class LocoRepoGenerationConfig(private val indentingWriterFactory: IndentingWriterFactory) {
     private val mbeddrRepo = MavenRepository
             .withIdAndUrl("maven", "https://projects.itemis.de/nexus/content/repositories/mbeddr")
@@ -50,7 +49,6 @@ class LocoRepoGenerationConfig(private val indentingWriterFactory: IndentingWrit
         build.buildScriptRepositories.add(MavenRepository.MAVEN_CENTRAL)
         build.projectRepositories.add(mbeddrRepo)
 
-        build.buildscript { it.dependency("de.itemis.mps:mps-gradle-plugin:1.2+") }
         build.configurations().add("mps")
         val customizerList: List<BuildCustomizer<*>> = buildCustomizersMap.entries.stream()
                 .filter { entry: Map.Entry<String, BuildCustomizer<*>> -> !BUILD_CUSTOMIZER_BLACK_LIST.contains(entry.key) }
@@ -70,9 +68,9 @@ class LocoRepoGenerationConfig(private val indentingWriterFactory: IndentingWrit
     }
 
     @Bean
-    fun gradleBuildProjectContributor(buildWriter: GroovyDslGradleBuildWriter,
+    fun gradleBuildProjectContributor(buildWriter: KotlinDslGradleBuildWriter,
                                       build: MpsBuild): GradleBuildProjectContributor {
-        return object : GradleBuildProjectContributor(buildWriter, build, indentingWriterFactory, "build.gradle") {}
+        return object : GradleBuildProjectContributor(buildWriter, build, indentingWriterFactory, "build.gradle.kts") {}
     }
 
     @Bean
@@ -84,7 +82,8 @@ class LocoRepoGenerationConfig(private val indentingWriterFactory: IndentingWrit
     @Bean
     fun settingsGradleProjectContributor(build: MpsBuild, context: MpsProjectGenerationContext): SettingsGradleProjectContributor {
         return SettingsGradleProjectContributor(build, indentingWriterFactory,
-                GradleMultiProjectSettingsWriter(context), "settings.gradle")
+            KotlinDslGradleSettingsWriter(), "settings.gradle.kts"
+        )
     }
 
     @Bean

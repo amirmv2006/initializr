@@ -15,9 +15,11 @@
  */
 package io.spring.initializr.generator.buildsystem
 
+import io.spring.initializr.generator.buildsystem.gradle.GradleBuildSystem
+
 class MpsBuildSystemFactory : BuildSystemFactory {
     override fun createBuildSystem(id: String): BuildSystem? {
-        return createBuildSystem(id, null)
+        return createBuildSystem(id, GradleBuildSystem.DIALECT_KOTLIN)
     }
 
     override fun createBuildSystem(id: String, dialect: String?): BuildSystem? {

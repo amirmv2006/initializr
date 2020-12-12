@@ -11,21 +11,7 @@ import kotlin.text.Typography.dollar
 
 class MpsBuildWriter(
         private val context: MpsProjectGenerationContext,
-        private val isLang: Boolean) : GroovyDslGradleBuildWriter() {
-
-    override fun writeJavaSourceCompatibility(writer: IndentingWriter, settings: GradleBuildSettings) {
-        writeProperty(writer, "ext.mpsMajor", "2020.2")
-        writeProperty(writer, "ext.mpsMinor", "2")
-        if (isLang) {
-            writeProperty(writer, "ext.jbrSdkVersion", "11_0_8")
-            writeProperty(writer, "ext.jbrBuild", "b1129.2")
-        }
-    }
-
-    override fun writeBuildscriptRepositories(writer: IndentingWriter, build: GradleBuild) {
-        val buildScrRepos = (build as MpsBuild).buildScriptRepositories.items().toList()
-        writeNestedCollection(writer, "repositories", buildScrRepos) { repositoryAsString(it) }
-    }
+        private val isLang: Boolean) : KotlinDslGradleBuildWriter() {
 
     override fun writeRepositories(writer: IndentingWriter?, build: GradleBuild?) {
         val projectRepos = (build as MpsBuild).projectRepositories.items().toList()
@@ -36,18 +22,12 @@ class MpsBuildWriter(
         writer.println()
         writer.println("dependencies" + " {")
         writer.indented {
-            writer.println("mps \"com.jetbrains:mps:\$mpsMajor.\$mpsMinor@zip\"")
+            writer.println("mps(mpsDistribution())")
             if (isLang) {
-                writer.println("ant_lib \"org.apache.ant:ant-junit:1.10.1\"")
+                writer.println("ant_lib(\"org.apache.ant:ant-junit:1.10.1\")")
             }
         }
         writer.println("}")
-
-        if (isLang) {
-            writer.println("ext[\"itemis.mps.gradle.ant.defaultScriptClasspath\"] = configurations.ant_lib.fileCollection { true }")
-            writer.println("ext[\"itemis.mps.gradle.ant.defaultScriptArgs\"] = [\"-Dbasedir=.\"]")
-            writePublishing(writer, build);
-        }
     }
 
     private fun writePublishing(writer: IndentingWriter, build: GradleBuild) {
@@ -98,6 +78,18 @@ class MpsBuildWriter(
                 writer.indented { writer.println("mavenCentral()") }
                 writer.println("}")
             }
+            writer.indented {
+                writer.println("pluginManager.withPlugin(\"java\") {")
+                writer.indented {
+                    writer.println("extensions.configure<JavaPluginExtension> {")
+                    writer.indented {
+                        writer.println("sourceCompatibility = JavaVersion.VERSION_11")
+                        writer.println("targetCompatibility = JavaVersion.VERSION_11")
+                    }
+                    writer.println("}")
+                }
+                writer.println("}")
+            }
             writer.println("}")
         }
         super.writeConfigurations(writer, configurations)
@@ -123,4 +115,27 @@ class MpsBuildWriter(
             writer.println("}")
         }
     }
+
+    override fun writePlugins(writer: IndentingWriter, build: GradleBuild) {
+        writeNestedCollection(writer, "plugins", build.plugins().values().toList(),
+            { plugin: GradlePlugin ->
+                if (plugin is StandardGradlePlugin) {
+                    pluginAsString(plugin)
+                } else {
+                    plugin.id
+                }
+            }, null
+        )
+        writer.println()
+        check(
+            !build.plugins().values()
+                .anyMatch { obj: GradlePlugin -> obj.isApply }) { "build.gradle.kts scripts shouldn't apply plugins. They should use the plugins block instead." }
+    }
 }
+
+private fun KotlinDslGradleBuildWriter.pluginAsString(standardPlugin: StandardGradlePlugin): String =
+    KotlinDslGradleBuildWriter::class.java
+        .getDeclaredMethod("pluginAsString", StandardGradlePlugin::class.java).let {
+            it.isAccessible = true
+            return@let it.invoke(this, standardPlugin) as String
+        }

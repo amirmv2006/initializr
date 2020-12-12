@@ -2,6 +2,7 @@ package io.spring.initializr.generator.spring.build.gradle
 
 import io.spring.initializr.generator.buildsystem.MpsBuild
 import io.spring.initializr.generator.buildsystem.gradle.MpsBuildWriter
+import io.spring.initializr.generator.buildsystem.gradle.MpsLanguageBuildCustomizer
 import io.spring.initializr.generator.buildsystem.gradle.MpsPropertiesGradleCustomizer
 import io.spring.initializr.generator.condition.ConditionalOnLanguage
 import io.spring.initializr.locorepo.contributors.*
@@ -19,10 +20,6 @@ class LocoRepoLanguageGenerationConfig {
     fun mpsBuildAdditions(build: MpsBuild): InitializingBean {
         return InitializingBean {
             build.projectRepositories.add(LocoRepoGenerationConfig.MPS_IVY)
-            build.buildscript { it.dependency("de.undercouch:gradle-download-task:4.0.4") }
-
-            build.plugins().apply("de.undercouch.download")
-            build.plugins().apply("maven-publish")
 
             build.configurations().add("ant_lib")
         }
@@ -75,9 +72,13 @@ class LocoRepoLanguageGenerationConfig {
         return LanguageFileContributor(context)
     }
 
+//    @Bean
+//    fun mpsPropertiesGradleCustomizer(): MpsPropertiesGradleCustomizer {
+//        return MpsPropertiesGradleCustomizer()
+//    }
+
     @Bean
-    fun mpsPropertiesGradleCustomizer(): MpsPropertiesGradleCustomizer {
-        return MpsPropertiesGradleCustomizer()
-    }
+    fun mpsLanguageBuildCustomizer(): MpsLanguageBuildCustomizer =
+        MpsLanguageBuildCustomizer()
 
 }

@@ -15,9 +15,15 @@
  */
 package io.spring.initializr.generator.buildsystem
 
+import io.spring.initializr.generator.buildsystem.gradle.GradleBuildSystem
+
 class MpsBuildSystem : BuildSystem {
     override fun id(): String {
         return ID
+    }
+
+    override fun dialect(): String {
+        return GradleBuildSystem.DIALECT_KOTLIN
     }
 
     companion object {
