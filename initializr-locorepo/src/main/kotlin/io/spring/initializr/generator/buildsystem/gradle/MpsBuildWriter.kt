@@ -1,5 +1,6 @@
 package io.spring.initializr.generator.buildsystem.gradle
 
+import io.spring.initializr.block
 import io.spring.initializr.generator.buildsystem.MavenRepository
 import io.spring.initializr.generator.buildsystem.MpsBuild
 import io.spring.initializr.generator.io.IndentingWriter
@@ -10,8 +11,9 @@ import kotlin.streams.toList
 import kotlin.text.Typography.dollar
 
 class MpsBuildWriter(
-        private val context: MpsProjectGenerationContext,
-        private val isLang: Boolean) : KotlinDslGradleBuildWriter() {
+    private val context: MpsProjectGenerationContext,
+    private val isLang: Boolean
+) : KotlinDslGradleBuildWriter() {
 
     override fun writeRepositories(writer: IndentingWriter?, build: GradleBuild?) {
         val projectRepos = (build as MpsBuild).projectRepositories.items().toList()
@@ -30,8 +32,13 @@ class MpsBuildWriter(
         writer.println("}")
     }
 
+    override fun writeJavaSourceCompatibility(writer: IndentingWriter?, settings: GradleBuildSettings?) {
+        // no need, done in another way
+    }
+
     private fun writePublishing(writer: IndentingWriter, build: GradleBuild) {
-        writer.println("""
+        writer.println(
+            """
             publishing {
                 publications {
                     maven(MavenPublication) {
@@ -50,7 +57,8 @@ class MpsBuildWriter(
                         }}
                 }
             }
-        """.trimIndent())
+        """.trimIndent()
+        )
     }
 
     override fun repositoryAsString(repository: MavenRepository): String {
@@ -72,52 +80,74 @@ class MpsBuildWriter(
 
     override fun writeConfigurations(writer: IndentingWriter, configurations: GradleConfigurationContainer) {
         if (isLang) {
-            writer.println("allprojects {")
-            writer.indented {
-                writer.println("repositories {")
-                writer.indented { writer.println("mavenCentral()") }
-                writer.println("}")
-            }
-            writer.indented {
-                writer.println("pluginManager.withPlugin(\"java\") {")
-                writer.indented {
-                    writer.println("extensions.configure<JavaPluginExtension> {")
-                    writer.indented {
+            writer.block("allprojects") {
+                writer.block("repositories") {
+                    writer.println("mavenCentral()")
+                }
+                writer.block("pluginManager.withPlugin(\"java\")") {
+                    writer.block("extensions.configure<JavaPluginExtension>") {
                         writer.println("sourceCompatibility = JavaVersion.VERSION_11")
                         writer.println("targetCompatibility = JavaVersion.VERSION_11")
                     }
-                    writer.println("}")
                 }
-                writer.println("}")
             }
-            writer.println("}")
+            writer.block("subprojects") {
+                writer.block("pluginManager.withPlugin(\"org.fbme.gradle.mps\")") {
+                    writer.block("if (the<MpsExtension>().hasBuildSolution)") {
+                        writer.println("buildBootstrap.get().inputs.dir(\"${'$'}projectDir/buildsolution/models\")")
+                        writer.block("dependencies") {
+                            writer.println("\"antBinaries\"(\"org.apache.ant:ant-junit:1.10.1\")")
+                        }
+                        writer.block("tasks.named(\"mpsPrepare\")") {
+                            writer.println("dependsOn(buildBootstrap)")
+                        }
+                    }
+                    writer.println("build.dependsOn(tasks.named(\"build\"))")
+                }
+            }
+            writer.block("fun Task.antexec(path: String, vararg tasks: String)") {
+                writer.block("doLast") {
+                    writer.block("javaexec") {
+                        writer.println("main = \"org.apache.tools.ant.launch.Launcher\"")
+                        writer.println("classpath = ant_lib")
+                        writer.println("args(\"-Dbasedir=${'$'}projectDir\", \"-buildfile\", file(path))")
+                        writer.println("args(*tasks)")
+                    }
+                }
+            }
         }
         super.writeConfigurations(writer, configurations)
     }
 
     override fun writeTasks(writer: IndentingWriter, tasks: GradleTaskContainer) {
-        tasks.values().filter { candidate: GradleTask -> candidate.type != null }.forEach { task: GradleTask ->
-            writer.println()
-            writer.print("task ${task.name} (")
-            if (task.type.isNotEmpty()) {
-                val shortName: String = ClassUtils.getShortName(task.type)
-                writer.print("type: $shortName, ")
+        tasks.tasks.values
+            .forEach { kotlinTask: KotlinGradleTask ->
+                val gradleTask = GradleTask(kotlinTask)
+                writer.println()
+                writer.print("val ${gradleTask.name} by tasks.")
+                if (kotlinTask.registering) {
+                    writer.print("registering")
+                } else {
+                    writer.print("getting")
+                }
+                if (gradleTask.type?.isNotEmpty() == true) {
+                    val shortName: String = ClassUtils.getShortName(gradleTask.type!!)
+                    writer.print("($shortName::class)")
+                }
+                writer.println(" {")
+                writer.indented {
+                    if (kotlinTask.dependencies.isNotEmpty()) {
+                        writer.println("dependsOn(${kotlinTask.dependencies.joinToString(", ") { it }})")
+                    }
+                    writeTaskCustomization(writer, gradleTask)
+                }
+                writer.println("}")
             }
-            writer.print("dependsOn: ${task.dependencies}) {")
-            writer.indented { writeTaskCustomization(writer, task) }
-            writer.println("}")
-            task.dependencies.clear()
-        }
-        tasks.values().filter { candidate: GradleTask -> candidate.type == null }.forEach { task: GradleTask ->
-            writer.println()
-            writer.println(task.name + " {")
-            writer.indented { writeTaskCustomization(writer, task) }
-            writer.println("}")
-        }
     }
 
     override fun writePlugins(writer: IndentingWriter, build: GradleBuild) {
-        writeNestedCollection(writer, "plugins", build.plugins().values().toList(),
+        writeNestedCollection(
+            writer, "plugins", build.plugins().values().toList(),
             { plugin: GradlePlugin ->
                 if (plugin is StandardGradlePlugin) {
                     pluginAsString(plugin)

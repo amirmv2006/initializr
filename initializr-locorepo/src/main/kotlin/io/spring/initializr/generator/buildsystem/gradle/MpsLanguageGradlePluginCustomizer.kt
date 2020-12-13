@@ -3,7 +3,7 @@ package io.spring.initializr.generator.buildsystem.gradle
 import io.spring.initializr.generator.buildsystem.MpsBuild
 import io.spring.initializr.generator.spring.build.BuildCustomizer
 
-class MpsLanguageBuildCustomizer : BuildCustomizer<MpsBuild> {
+class MpsLanguageGradlePluginCustomizer : BuildCustomizer<MpsBuild> {
     override fun customize(build: MpsBuild) {
         build.plugins().apply {
             this.plugins["base"] = BasePlugin()

@@ -146,3 +146,7 @@ class MpsPropertiesGradleCustomizer : BuildCustomizer<MpsBuild> {
         private const val DOWNLOAD_TYPE = "Download"
     }
 }
+
+private fun GradleTask.dependsOn(s: String) {
+    TODO("Not yet implemented")
+}

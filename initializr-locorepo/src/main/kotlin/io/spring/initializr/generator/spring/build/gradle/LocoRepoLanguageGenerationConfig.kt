@@ -1,9 +1,10 @@
 package io.spring.initializr.generator.spring.build.gradle
 
 import io.spring.initializr.generator.buildsystem.MpsBuild
+import io.spring.initializr.generator.buildsystem.gradle.GradleMultiProjectSettingsWriter
 import io.spring.initializr.generator.buildsystem.gradle.MpsBuildWriter
-import io.spring.initializr.generator.buildsystem.gradle.MpsLanguageBuildCustomizer
-import io.spring.initializr.generator.buildsystem.gradle.MpsPropertiesGradleCustomizer
+import io.spring.initializr.generator.buildsystem.gradle.MpsLanguageGradlePluginCustomizer
+import io.spring.initializr.generator.buildsystem.gradle.MpsLanguageGradleTaskCustomizer
 import io.spring.initializr.generator.condition.ConditionalOnLanguage
 import io.spring.initializr.locorepo.contributors.*
 import io.spring.initializr.locorepo.language.MpsLanguage
@@ -19,8 +20,6 @@ class LocoRepoLanguageGenerationConfig {
     @Bean
     fun mpsBuildAdditions(build: MpsBuild): InitializingBean {
         return InitializingBean {
-            build.projectRepositories.add(LocoRepoGenerationConfig.MPS_IVY)
-
             build.configurations().add("ant_lib")
         }
     }
@@ -78,7 +77,14 @@ class LocoRepoLanguageGenerationConfig {
 //    }
 
     @Bean
-    fun mpsLanguageBuildCustomizer(): MpsLanguageBuildCustomizer =
-        MpsLanguageBuildCustomizer()
+    fun mpsLanguageBuildCustomizer(): MpsLanguageGradlePluginCustomizer =
+        MpsLanguageGradlePluginCustomizer()
 
+    @Bean
+    fun mpsLanguageGradleTaskCustomizer(): MpsLanguageGradleTaskCustomizer =
+        MpsLanguageGradleTaskCustomizer()
+
+    @Bean
+    fun gradleMultiProjectSettingsWriter(context: MpsProjectGenerationContext) : GradleMultiProjectSettingsWriter =
+        GradleMultiProjectSettingsWriter(context)
 }
