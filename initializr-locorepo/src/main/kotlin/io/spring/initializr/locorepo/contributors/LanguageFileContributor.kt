@@ -25,6 +25,6 @@ class LanguageFileContributor(
         val generatorTemplates = langProjRoot.resolveMulti("generator", "templates")
         Files.createDirectories(generatorTemplates)
         generatorTemplates.resolve("main@generator.mps").writeGeneratorMps(context)
-        langScrRoot.resolve("build.gradle").writeSubModuleBuildGradle(context)
+        langScrRoot.resolve("build.gradle.kts").writeSubModuleBuildGradle(context)
     }
 }

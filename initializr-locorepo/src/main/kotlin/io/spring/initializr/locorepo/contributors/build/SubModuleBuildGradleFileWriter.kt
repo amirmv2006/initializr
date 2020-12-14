@@ -7,7 +7,7 @@ fun Path.writeSubModuleBuildGradle(context: LanguageGenerationContext) {
     this.toFile().writeText("""
         
         plugins {
-            id 'mps'
+            mps
         }
 
     """.trimIndent())

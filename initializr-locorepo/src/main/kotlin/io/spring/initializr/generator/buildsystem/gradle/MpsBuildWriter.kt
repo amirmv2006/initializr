@@ -93,7 +93,7 @@ class MpsBuildWriter(
             }
             writer.block("subprojects") {
                 writer.block("pluginManager.withPlugin(\"org.fbme.gradle.mps\")") {
-                    writer.block("if (the<MpsExtension>().hasBuildSolution)") {
+                    writer.block("if (the<org.fbme.gradle.MpsExtension>().hasBuildSolution)") {
                         writer.println("buildBootstrap.get().inputs.dir(\"${'$'}projectDir/buildsolution/models\")")
                         writer.block("dependencies") {
                             writer.println("\"antBinaries\"(\"org.apache.ant:ant-junit:1.10.1\")")

@@ -6,7 +6,7 @@ import org.intellij.lang.annotations.Language
 @Language("XML")
 fun buildMpsPluginNode(context: LanguageGenerationContext): String = """
     <node concept="1l3spW" id="1LFOa1yjA${'$'}U">
-      <property role="2DA0ip" value="../../../../"/>
+      <property role="2DA0ip" value="../"/>
       <property role="TrG5h" value="${context.projectDescription.artifactId}_Plugin"/>
       <property role="turDy" value="build-plugin.xml"/>
       <node concept="2sgV4H" id="1LFOa1yjAAu" role="1l3spa">

@@ -140,7 +140,7 @@ fun Path.writeBuildBootstrapXml(context: LanguageGenerationContext) {
               <library file="${'$'}{artifacts.mps}/plugins/mps-build/languages/build/jetbrains.mps.build.workflow.preset.jar" />
               <library file="${'$'}{artifacts.mps}/plugins/mps-build/languages/build/jetbrains.mps.ide.build.jar" />
               <chunk>
-                <module file="${'$'}{basedir}/code/buildscripts/solutions/${context.buildModule.name}/${context.buildModule.name}.msd" />
+                <module file="${'$'}{basedir}/buildscripts/${context.buildModule.name}.msd" />
               </chunk>
               <jvmargs>
                 <arg value="-ea" />
@@ -157,19 +157,19 @@ fun Path.writeBuildBootstrapXml(context: LanguageGenerationContext) {
           <target name="makeDependents" />
           
           <target name="java.compile.${context.buildModule.name}">
-            <mkdir dir="${'$'}{basedir}/code/buildscripts/solutions/${context.buildModule.name}/source_gen" />
+            <mkdir dir="${'$'}{basedir}/buildscripts/source_gen" />
             <mkdir dir="${'$'}{build.tmp}/java/out/${context.buildModule.name}" />
             <javac destdir="${'$'}{build.tmp}/java/out/${context.buildModule.name}" fork="true" encoding="utf8" includeantruntime="false" debug="true">
               <compilerarg value="-Xlint:none" />
               <src>
-                <path location="${'$'}{basedir}/code/buildscripts/solutions/${context.buildModule.name}/source_gen" />
+                <path location="${'$'}{basedir}/buildscripts/source_gen" />
               </src>
               <classpath />
             </javac>
           </target>
           
           <target name="cleanSources">
-            <delete dir="${'$'}{basedir}/code/buildscripts/solutions/${context.buildModule.name}/source_gen" />
+            <delete dir="${'$'}{basedir}/buildscripts/source_gen" />
           </target>
         </project>
     """.trimIndent())

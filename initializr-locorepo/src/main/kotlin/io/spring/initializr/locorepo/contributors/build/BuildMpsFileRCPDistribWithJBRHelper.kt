@@ -8,7 +8,7 @@ fun buildMpsRCPDistribWithJBRNode(context: LanguageGenerationContext): String = 
     <node concept="1l3spW" id="SSBTh99e4D">
       <property role="TrG5h" value="${context.projectDescription.artifactId}_RCPDistribWithJBR"/>
       <property role="turDy" value="build-rcpdistrib-jbr.xml"/>
-      <property role="2DA0ip" value="../../../.."/>
+      <property role="2DA0ip" value="../"/>
       <node concept="2sgV4H" id="SSBTh99e4E" role="1l3spa">
         <ref role="1l3spb" node="SSBTh98un7" resolve="${context.projectDescription.artifactId}_RCP"/>
       </node>
@@ -65,22 +65,13 @@ fun buildMpsRCPDistribWithJBRNode(context: LanguageGenerationContext): String = 
               </node>
               <node concept="55IIr" id="SSBTh99e4U" role="28jJRO">
                 <node concept="2Ry0Ak" id="SSBTh99e4V" role="iGT6I">
-                  <property role="2Ry0Am" value="code"/>
-                  <node concept="2Ry0Ak" id="SSBTh99e4W" role="2Ry0An">
                     <property role="2Ry0Am" value="buildscripts"/>
                     <node concept="2Ry0Ak" id="SSBTh99e4X" role="2Ry0An">
-                      <property role="2Ry0Am" value="solutions"/>
-                      <node concept="2Ry0Ak" id="SSBTh99e4Y" role="2Ry0An">
-                        <property role="2Ry0Am" value="${context.buildModule.models[0].name}"/>
-                        <node concept="2Ry0Ak" id="SSBTh99e4Z" role="2Ry0An">
-                          <property role="2Ry0Am" value="source_gen"/>
-                          <node concept="2Ry0Ak" id="SSBTh99e50" role="2Ry0An">
-                            ${buildModuleToOutputFolder(context, "${context.ideFileName()}.vmoptions", "SSBTh99e51")}
-                          </node>
-                        </node>
+                      <property role="2Ry0Am" value="source_gen"/>
+                      <node concept="2Ry0Ak" id="SSBTh99e50" role="2Ry0An">
+                        ${buildModuleToOutputFolder(context, "${context.ideFileName()}.vmoptions", "SSBTh99e51")}
                       </node>
                     </node>
-                  </node>
                 </node>
               </node>
             </node>
@@ -91,22 +82,13 @@ fun buildMpsRCPDistribWithJBRNode(context: LanguageGenerationContext): String = 
               </node>
               <node concept="55IIr" id="SSBTh99e5a" role="28jJRO">
                 <node concept="2Ry0Ak" id="SSBTh99e5b" role="iGT6I">
-                  <property role="2Ry0Am" value="code"/>
-                  <node concept="2Ry0Ak" id="SSBTh99e5c" role="2Ry0An">
                     <property role="2Ry0Am" value="buildscripts"/>
                     <node concept="2Ry0Ak" id="SSBTh99e5d" role="2Ry0An">
-                      <property role="2Ry0Am" value="solutions"/>
-                      <node concept="2Ry0Ak" id="SSBTh99e5e" role="2Ry0An">
-                        <property role="2Ry0Am" value="${context.buildModule.models[0].name}"/>
-                        <node concept="2Ry0Ak" id="SSBTh99e5f" role="2Ry0An">
-                          <property role="2Ry0Am" value="source_gen"/>
-                          <node concept="2Ry0Ak" id="SSBTh99e5g" role="2Ry0An">
-                            ${buildModuleToOutputFolder(context, "${context.ideFileName()}64.vmoptions", "SSBTh99e5h")}
-                          </node>
-                        </node>
+                      <property role="2Ry0Am" value="source_gen"/>
+                      <node concept="2Ry0Ak" id="SSBTh99e5g" role="2Ry0An">
+                        ${buildModuleToOutputFolder(context, "${context.ideFileName()}64.vmoptions", "SSBTh99e5h")}
                       </node>
                     </node>
-                  </node>
                 </node>
               </node>
             </node>
@@ -121,22 +103,13 @@ fun buildMpsRCPDistribWithJBRNode(context: LanguageGenerationContext): String = 
               </node>
               <node concept="55IIr" id="SSBTh99e5r" role="28jJRO">
                 <node concept="2Ry0Ak" id="SSBTh99e5s" role="iGT6I">
-                  <property role="2Ry0Am" value="code"/>
-                  <node concept="2Ry0Ak" id="1Y1nd8S4sAb" role="2Ry0An">
                     <property role="2Ry0Am" value="buildscripts"/>
                     <node concept="2Ry0Ak" id="SSBTh99e5B" role="2Ry0An">
-                      <property role="2Ry0Am" value="solutions"/>
-                      <node concept="2Ry0Ak" id="SSBTh99e5A" role="2Ry0An">
-                        <property role="2Ry0Am" value="${context.buildModule.models[0].name}"/>
-                        <node concept="2Ry0Ak" id="SSBTh99e5_" role="2Ry0An">
-                          <property role="2Ry0Am" value="source_gen"/>
-                          <node concept="2Ry0Ak" id="SSBTh99e5${'$'}" role="2Ry0An">
-                            ${buildModuleToOutputFolder(context, "${context.ideFileName()}.sh", "SSBTh99e5t")}
-                          </node>
-                        </node>
+                      <property role="2Ry0Am" value="source_gen"/>
+                      <node concept="2Ry0Ak" id="SSBTh99e5${'$'}" role="2Ry0An">
+                        ${buildModuleToOutputFolder(context, "${context.ideFileName()}.sh", "SSBTh99e5t")}
                       </node>
                     </node>
-                  </node>
                 </node>
               </node>
             </node>
@@ -197,22 +170,13 @@ fun buildMpsRCPDistribWithJBRNode(context: LanguageGenerationContext): String = 
               </node>
               <node concept="55IIr" id="SSBTh99e5T" role="28jJRO">
                 <node concept="2Ry0Ak" id="SSBTh99e5U" role="iGT6I">
-                  <property role="2Ry0Am" value="code"/>
-                  <node concept="2Ry0Ak" id="SSBTh99e5V" role="2Ry0An">
                     <property role="2Ry0Am" value="buildscripts"/>
                     <node concept="2Ry0Ak" id="SSBTh99e5W" role="2Ry0An">
-                      <property role="2Ry0Am" value="solutions"/>
-                      <node concept="2Ry0Ak" id="SSBTh99e5X" role="2Ry0An">
-                        <property role="2Ry0Am" value="${context.buildModule.models[0].name}"/>
-                        <node concept="2Ry0Ak" id="SSBTh99e5Y" role="2Ry0An">
-                          <property role="2Ry0Am" value="source_gen"/>
-                          <node concept="2Ry0Ak" id="SSBTh99e5Z" role="2Ry0An">
-                            ${buildModuleToOutputFolder(context, "${context.ideFileName()}.vmoptions", "SSBTh99e60")}
-                          </node>
-                        </node>
+                      <property role="2Ry0Am" value="source_gen"/>
+                      <node concept="2Ry0Ak" id="SSBTh99e5Z" role="2Ry0An">
+                        ${buildModuleToOutputFolder(context, "${context.ideFileName()}.vmoptions", "SSBTh99e60")}
                       </node>
                     </node>
-                  </node>
                 </node>
               </node>
             </node>
@@ -230,22 +194,13 @@ fun buildMpsRCPDistribWithJBRNode(context: LanguageGenerationContext): String = 
               </node>
               <node concept="55IIr" id="SSBTh99e6c" role="28jJRO">
                 <node concept="2Ry0Ak" id="SSBTh99e6d" role="iGT6I">
-                  <property role="2Ry0Am" value="code"/>
-                  <node concept="2Ry0Ak" id="SSBTh99e6e" role="2Ry0An">
                     <property role="2Ry0Am" value="buildscripts"/>
                     <node concept="2Ry0Ak" id="SSBTh99e6f" role="2Ry0An">
-                      <property role="2Ry0Am" value="solutions"/>
-                      <node concept="2Ry0Ak" id="SSBTh99e6g" role="2Ry0An">
-                        <property role="2Ry0Am" value="${context.buildModule.models[0].name}"/>
-                        <node concept="2Ry0Ak" id="SSBTh99e6h" role="2Ry0An">
-                          <property role="2Ry0Am" value="source_gen"/>
-                          <node concept="2Ry0Ak" id="SSBTh99e6i" role="2Ry0An">
-                            ${buildModuleToOutputFolder(context, "${context.ideFileName()}64.vmoptions", "SSBTh99e6j")}
-                          </node>
-                        </node>
+                      <property role="2Ry0Am" value="source_gen"/>
+                      <node concept="2Ry0Ak" id="SSBTh99e6i" role="2Ry0An">
+                        ${buildModuleToOutputFolder(context, "${context.ideFileName()}64.vmoptions", "SSBTh99e6j")}
                       </node>
                     </node>
-                  </node>
                 </node>
               </node>
             </node>
@@ -302,22 +257,13 @@ fun buildMpsRCPDistribWithJBRNode(context: LanguageGenerationContext): String = 
               </node>
               <node concept="55IIr" id="SSBTh99e6G" role="28jJRO">
                 <node concept="2Ry0Ak" id="SSBTh99e6H" role="iGT6I">
-                  <property role="2Ry0Am" value="code"/>
-                  <node concept="2Ry0Ak" id="SSBTh99e6I" role="2Ry0An">
                     <property role="2Ry0Am" value="buildscripts"/>
                     <node concept="2Ry0Ak" id="SSBTh99e6J" role="2Ry0An">
-                      <property role="2Ry0Am" value="solutions"/>
-                      <node concept="2Ry0Ak" id="SSBTh99e6K" role="2Ry0An">
-                        <property role="2Ry0Am" value="${context.buildModule.models[0].name}"/>
-                        <node concept="2Ry0Ak" id="SSBTh99e6L" role="2Ry0An">
-                          <property role="2Ry0Am" value="source_gen"/>
-                          <node concept="2Ry0Ak" id="SSBTh99e6M" role="2Ry0An">
-                            ${buildModuleToOutputFolder(context, "${context.ideFileName()}.bat", "SSBTh99e6N")}
-                          </node>
-                        </node>
+                      <property role="2Ry0Am" value="source_gen"/>
+                      <node concept="2Ry0Ak" id="SSBTh99e6M" role="2Ry0An">
+                        ${buildModuleToOutputFolder(context, "${context.ideFileName()}.bat", "SSBTh99e6N")}
                       </node>
                     </node>
-                  </node>
                 </node>
               </node>
             </node>
@@ -437,22 +383,13 @@ fun buildMpsRCPDistribWithJBRNode(context: LanguageGenerationContext): String = 
               <node concept="28jJK3" id="SSBTh99e7${'$'}" role="39821P">
                 <node concept="55IIr" id="SSBTh99e7_" role="28jJRO">
                   <node concept="2Ry0Ak" id="SSBTh99e7A" role="iGT6I">
-                    <property role="2Ry0Am" value="code"/>
-                    <node concept="2Ry0Ak" id="SSBTh99e7B" role="2Ry0An">
                       <property role="2Ry0Am" value="buildscripts"/>
                       <node concept="2Ry0Ak" id="SSBTh99e7C" role="2Ry0An">
-                        <property role="2Ry0Am" value="solutions"/>
-                        <node concept="2Ry0Ak" id="SSBTh99e7D" role="2Ry0An">
-                          <property role="2Ry0Am" value="${context.buildModule.models[0].name}"/>
-                          <node concept="2Ry0Ak" id="SSBTh99e7E" role="2Ry0An">
-                            <property role="2Ry0Am" value="source_gen"/>
-                            <node concept="2Ry0Ak" id="SSBTh99e7F" role="2Ry0An">
-                              ${buildModuleToOutputFolder(context, "Info.plist.xml", "SSBTh99e7G")}
-                            </node>
-                          </node>
+                        <property role="2Ry0Am" value="source_gen"/>
+                        <node concept="2Ry0Ak" id="SSBTh99e7F" role="2Ry0An">
+                          ${buildModuleToOutputFolder(context, "Info.plist.xml", "SSBTh99e7G")}
                         </node>
                       </node>
-                    </node>
                   </node>
                 </node>
                 <node concept="2${'$'}gBol" id="SSBTh99e7N" role="28jJR8">
@@ -581,22 +518,13 @@ fun buildMpsRCPDistribWithJBRNode(context: LanguageGenerationContext): String = 
                   </node>
                   <node concept="55IIr" id="SSBTh99e8q" role="28jJRO">
                     <node concept="2Ry0Ak" id="SSBTh99e8r" role="iGT6I">
-                      <property role="2Ry0Am" value="code"/>
-                      <node concept="2Ry0Ak" id="1Y1nd8S4sAz" role="2Ry0An">
                         <property role="2Ry0Am" value="buildscripts"/>
                         <node concept="2Ry0Ak" id="SSBTh99e8A" role="2Ry0An">
-                          <property role="2Ry0Am" value="solutions"/>
-                          <node concept="2Ry0Ak" id="SSBTh99e8_" role="2Ry0An">
-                            <property role="2Ry0Am" value="${context.buildModule.models[0].name}"/>
-                            <node concept="2Ry0Ak" id="SSBTh99e8${'$'}" role="2Ry0An">
-                              <property role="2Ry0Am" value="source_gen"/>
-                              <node concept="2Ry0Ak" id="SSBTh99e8w" role="2Ry0An">
-                                ${buildModuleToOutputFolder(context, "${context.ideFileName()}64.vmoptions", "SSBTh99e8s")}
-                              </node>
-                            </node>
+                          <property role="2Ry0Am" value="source_gen"/>
+                          <node concept="2Ry0Ak" id="SSBTh99e8w" role="2Ry0An">
+                            ${buildModuleToOutputFolder(context, "${context.ideFileName()}64.vmoptions", "SSBTh99e8s")}
                           </node>
                         </node>
-                      </node>
                     </node>
                   </node>
                   <node concept="2${'$'}htT0" id="SSBTh99e8C" role="28jJR8">

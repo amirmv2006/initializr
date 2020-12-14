@@ -8,7 +8,7 @@ fun buildMpsRCPDistributionNode(context: LanguageGenerationContext): String = ""
     <node concept="1l3spW" id="SSBTh98upq">
       <property role="TrG5h" value="${context.projectDescription.artifactId}_RCPDistrib"/>
       <property role="turDy" value="build-rcpdistrib.xml"/>
-      <property role="2DA0ip" value="../../../.."/>
+      <property role="2DA0ip" value="../"/>
       <node concept="2sgV4H" id="SSBTh98upr" role="1l3spa">
         <ref role="1l3spb" node="SSBTh98un7" resolve="${context.projectDescription.artifactId}_RCP"/>
       </node>
@@ -51,33 +51,26 @@ fun buildMpsRCPDistributionNode(context: LanguageGenerationContext): String = ""
               </node>
               <node concept="55IIr" id="SSBTh98uqZ" role="28jJRO">
                 <node concept="2Ry0Ak" id="SSBTh98upH" role="iGT6I">
-                  <property role="2Ry0Am" value="code"/>
-                  <node concept="2Ry0Ak" id="SSBTh98upI" role="2Ry0An">
                     <property role="2Ry0Am" value="buildscripts"/>
                     <node concept="2Ry0Ak" id="SSBTh98upJ" role="2Ry0An">
-                      <property role="2Ry0Am" value="solutions"/>
-                      <node concept="2Ry0Ak" id="SSBTh98upK" role="2Ry0An">
-                        <property role="2Ry0Am" value="${context.buildModule.models[0].name}"/>
-                        <node concept="2Ry0Ak" id="SSBTh98upL" role="2Ry0An">
-                          <property role="2Ry0Am" value="source_gen"/>
-                          <node concept="2Ry0Ak" id="SSBTh98upM" role="2Ry0An">
-                            <property role="2Ry0Am" value="ir"/>
-                            <node concept="2Ry0Ak" id="SSBTh98upN" role="2Ry0An">
-                              <property role="2Ry0Am" value="amv"/>
-                              <node concept="2Ry0Ak" id="SSBTh98upO" role="2Ry0An">
-                                <property role="2Ry0Am" value="os"/>
-                                <node concept="2Ry0Ak" id="SSBTh98upP" role="2Ry0An">
-                                  <property role="2Ry0Am" value="snippets"/>
-                                  <node concept="2Ry0Ak" id="SSBTh98upQ" role="2Ry0An">
-                                    <property role="2Ry0Am"
-                                      value="${context.projectDescription.artifactId}"/>
-                                    <node concept="2Ry0Ak" id="SSBTh98upR" role="2Ry0An">
-                                      <property role="2Ry0Am" value="ide"/>
-                                      <node concept="2Ry0Ak" id="SSBTh98upS" role="2Ry0An">
-                                        <property role="2Ry0Am" value="build"/>
-                                        <node concept="2Ry0Ak" id="SSBTh98upT" role="2Ry0An">
-                                          <property role="2Ry0Am" value="${context.ideFileName()}.vmoptions"/>
-                                        </node>
+                        <property role="2Ry0Am" value="source_gen"/>
+                        <node concept="2Ry0Ak" id="SSBTh98upM" role="2Ry0An">
+                          <property role="2Ry0Am" value="ir"/>
+                          <node concept="2Ry0Ak" id="SSBTh98upN" role="2Ry0An">
+                            <property role="2Ry0Am" value="amv"/>
+                            <node concept="2Ry0Ak" id="SSBTh98upO" role="2Ry0An">
+                              <property role="2Ry0Am" value="os"/>
+                              <node concept="2Ry0Ak" id="SSBTh98upP" role="2Ry0An">
+                                <property role="2Ry0Am" value="snippets"/>
+                                <node concept="2Ry0Ak" id="SSBTh98upQ" role="2Ry0An">
+                                  <property role="2Ry0Am"
+                                    value="${context.projectDescription.artifactId}"/>
+                                  <node concept="2Ry0Ak" id="SSBTh98upR" role="2Ry0An">
+                                    <property role="2Ry0Am" value="ide"/>
+                                    <node concept="2Ry0Ak" id="SSBTh98upS" role="2Ry0An">
+                                      <property role="2Ry0Am" value="build"/>
+                                      <node concept="2Ry0Ak" id="SSBTh98upT" role="2Ry0An">
+                                        <property role="2Ry0Am" value="${context.ideFileName()}.vmoptions"/>
                                       </node>
                                     </node>
                                   </node>
@@ -86,9 +79,7 @@ fun buildMpsRCPDistributionNode(context: LanguageGenerationContext): String = ""
                             </node>
                           </node>
                         </node>
-                      </node>
                     </node>
-                  </node>
                 </node>
               </node>
             </node>
@@ -99,22 +90,13 @@ fun buildMpsRCPDistributionNode(context: LanguageGenerationContext): String = ""
               </node>
               <node concept="55IIr" id="SSBTh98ur2" role="28jJRO">
                 <node concept="2Ry0Ak" id="SSBTh98upU" role="iGT6I">
-                  <property role="2Ry0Am" value="code"/>
-                  <node concept="2Ry0Ak" id="SSBTh98upV" role="2Ry0An">
                     <property role="2Ry0Am" value="buildscripts"/>
                     <node concept="2Ry0Ak" id="SSBTh98upW" role="2Ry0An">
-                      <property role="2Ry0Am" value="solutions"/>
-                      <node concept="2Ry0Ak" id="SSBTh98upX" role="2Ry0An">
-                        <property role="2Ry0Am" value="${context.buildModule.models[0].name}"/>
-                        <node concept="2Ry0Ak" id="SSBTh98upY" role="2Ry0An">
-                          <property role="2Ry0Am" value="source_gen"/>
-                          <node concept="2Ry0Ak" id="SSBTh98upZ" role="2Ry0An">
+                        <property role="2Ry0Am" value="source_gen"/>
+                        <node concept="2Ry0Ak" id="SSBTh98upZ" role="2Ry0An">
                             ${buildModuleToOutputFolder(context, "${context.ideFileName()}64.vmoptions", "SSBTh98uq0")}
-                          </node> <!-- end of SSBTh98upZ -->
-                        </node>
-                      </node>
-                    </node>
-                  </node>
+                        </node> <!-- end of SSBTh98upZ -->
+                    </node>                  
                 </node>
               </node>
             </node>
@@ -129,22 +111,13 @@ fun buildMpsRCPDistributionNode(context: LanguageGenerationContext): String = ""
               </node>
               <node concept="55IIr" id="SSBTh98ur6" role="28jJRO">
                 <node concept="2Ry0Ak" id="SSBTh98uq7" role="iGT6I">
-                  <property role="2Ry0Am" value="code"/>
-                  <node concept="2Ry0Ak" id="SSBTh98uq8" role="2Ry0An">
-                    <property role="2Ry0Am" value="buildscripts"/>
+                  <property role="2Ry0Am" value="buildscripts"/>
                     <node concept="2Ry0Ak" id="SSBTh98uq9" role="2Ry0An">
-                      <property role="2Ry0Am" value="solutions"/>
-                      <node concept="2Ry0Ak" id="SSBTh98uqa" role="2Ry0An">
-                        <property role="2Ry0Am" value="${context.buildModule.models[0].name}"/>
-                        <node concept="2Ry0Ak" id="SSBTh98uqb" role="2Ry0An">
-                          <property role="2Ry0Am" value="source_gen"/>
-                          <node concept="2Ry0Ak" id="SSBTh98uqc" role="2Ry0An">
+                        <property role="2Ry0Am" value="source_gen"/>
+                        <node concept="2Ry0Ak" id="SSBTh98uqc" role="2Ry0An">
                             ${buildModuleToOutputFolder(context, "${context.ideFileName()}64.vmoptions", "SSBTh98uqd")}
-                          </node>
                         </node>
-                      </node>
                     </node>
-                  </node>
                 </node>
               </node>
             </node>
@@ -191,22 +164,13 @@ fun buildMpsRCPDistributionNode(context: LanguageGenerationContext): String = ""
               </node>
               <node concept="55IIr" id="SSBTh98urz" role="28jJRO">
                 <node concept="2Ry0Ak" id="SSBTh98ur${'$'}" role="iGT6I">
-                  <property role="2Ry0Am" value="code"/>
-                  <node concept="2Ry0Ak" id="SSBTh98ur_" role="2Ry0An">
-                    <property role="2Ry0Am" value="buildscripts"/>
+                  <property role="2Ry0Am" value="buildscripts"/>
                     <node concept="2Ry0Ak" id="SSBTh98urA" role="2Ry0An">
-                      <property role="2Ry0Am" value="solutions"/>
-                      <node concept="2Ry0Ak" id="SSBTh98urB" role="2Ry0An">
-                        <property role="2Ry0Am" value="${context.buildModule.models[0].name}"/>
-                        <node concept="2Ry0Ak" id="SSBTh98urC" role="2Ry0An">
-                          <property role="2Ry0Am" value="source_gen"/>
-                          <node concept="2Ry0Ak" id="SSBTh98urD" role="2Ry0An">
-                            ${buildModuleToOutputFolder(context, "${context.ideFileName()}.vmoptions", "SSBTh98urE")}
-                          </node>
-                        </node>
+                      <property role="2Ry0Am" value="source_gen"/>
+                      <node concept="2Ry0Ak" id="SSBTh98urD" role="2Ry0An">
+                        ${buildModuleToOutputFolder(context, "${context.ideFileName()}.vmoptions", "SSBTh98urE")}
                       </node>
                     </node>
-                  </node>
                 </node>
               </node>
             </node>
@@ -224,22 +188,13 @@ fun buildMpsRCPDistributionNode(context: LanguageGenerationContext): String = ""
               </node>
               <node concept="55IIr" id="SSBTh98urQ" role="28jJRO">
                 <node concept="2Ry0Ak" id="SSBTh98urR" role="iGT6I">
-                  <property role="2Ry0Am" value="code"/>
-                  <node concept="2Ry0Ak" id="SSBTh98urS" role="2Ry0An">
                     <property role="2Ry0Am" value="buildscripts"/>
                     <node concept="2Ry0Ak" id="SSBTh98urT" role="2Ry0An">
-                      <property role="2Ry0Am" value="solutions"/>
-                      <node concept="2Ry0Ak" id="SSBTh98urU" role="2Ry0An">
-                        <property role="2Ry0Am" value="${context.buildModule.models[0].name}"/>
-                        <node concept="2Ry0Ak" id="SSBTh98urV" role="2Ry0An">
-                          <property role="2Ry0Am" value="source_gen"/>
-                          <node concept="2Ry0Ak" id="SSBTh98urW" role="2Ry0An">
-                            ${buildModuleToOutputFolder(context, "${context.ideFileName()}64.vmoptions", "SSBTh98us0")}
-                          </node>
-                        </node>
+                      <property role="2Ry0Am" value="source_gen"/>
+                      <node concept="2Ry0Ak" id="SSBTh98urW" role="2Ry0An">
+                        ${buildModuleToOutputFolder(context, "${context.ideFileName()}64.vmoptions", "SSBTh98us0")}
                       </node>
                     </node>
-                  </node>
                 </node>
               </node>
             </node>
@@ -296,22 +251,13 @@ fun buildMpsRCPDistributionNode(context: LanguageGenerationContext): String = ""
               </node>
               <node concept="55IIr" id="SSBTh98usg" role="28jJRO">
                 <node concept="2Ry0Ak" id="SSBTh98uqk" role="iGT6I">
-                  <property role="2Ry0Am" value="code"/>
-                  <node concept="2Ry0Ak" id="SSBTh98uql" role="2Ry0An">
                     <property role="2Ry0Am" value="buildscripts"/>
                     <node concept="2Ry0Ak" id="SSBTh98uqm" role="2Ry0An">
-                      <property role="2Ry0Am" value="solutions"/>
-                      <node concept="2Ry0Ak" id="SSBTh98uqn" role="2Ry0An">
-                        <property role="2Ry0Am" value="${context.buildModule.models[0].name}"/>
-                        <node concept="2Ry0Ak" id="SSBTh98uqo" role="2Ry0An">
-                          <property role="2Ry0Am" value="source_gen"/>
-                          <node concept="2Ry0Ak" id="SSBTh98uqp" role="2Ry0An">
-                            ${buildModuleToOutputFolder(context, "${context.ideFileName()}.bat", "SSBTh98uqq")}
-                          </node>
-                        </node>
+                      <property role="2Ry0Am" value="source_gen"/>
+                      <node concept="2Ry0Ak" id="SSBTh98uqp" role="2Ry0An">
+                        ${buildModuleToOutputFolder(context, "${context.ideFileName()}.bat", "SSBTh98uqq")}
                       </node>
                     </node>
-                  </node>
                 </node>
               </node>
             </node>
@@ -431,22 +377,13 @@ fun buildMpsRCPDistributionNode(context: LanguageGenerationContext): String = ""
               <node concept="28jJK3" id="SSBTh98utp" role="39821P">
                 <node concept="55IIr" id="SSBTh98utq" role="28jJRO">
                   <node concept="2Ry0Ak" id="SSBTh98uqx" role="iGT6I">
-                    <property role="2Ry0Am" value="code"/>
-                    <node concept="2Ry0Ak" id="SSBTh98uqy" role="2Ry0An">
                       <property role="2Ry0Am" value="buildscripts"/>
                       <node concept="2Ry0Ak" id="SSBTh98uqz" role="2Ry0An">
-                        <property role="2Ry0Am" value="solutions"/>
-                        <node concept="2Ry0Ak" id="SSBTh98uq${'$'}" role="2Ry0An">
-                          <property role="2Ry0Am" value="${context.buildModule.models[0].name}"/>
-                          <node concept="2Ry0Ak" id="SSBTh98uq_" role="2Ry0An">
-                            <property role="2Ry0Am" value="source_gen"/>
-                            <node concept="2Ry0Ak" id="SSBTh98uqA" role="2Ry0An">
-                              ${buildModuleToOutputFolder(context, "Info.plist.xml", "SSBTh98uqB")}
-                            </node>
-                          </node>
+                        <property role="2Ry0Am" value="source_gen"/>
+                        <node concept="2Ry0Ak" id="SSBTh98uqA" role="2Ry0An">
+                          ${buildModuleToOutputFolder(context, "Info.plist.xml", "SSBTh98uqB")}
                         </node>
                       </node>
-                    </node>
                   </node>
                 </node>
                 <node concept="2${'$'}gBol" id="SSBTh98utr" role="28jJR8">
@@ -561,22 +498,13 @@ fun buildMpsRCPDistributionNode(context: LanguageGenerationContext): String = ""
                   </node>
                   <node concept="55IIr" id="SSBTh98utT" role="28jJRO">
                     <node concept="2Ry0Ak" id="SSBTh98utU" role="iGT6I">
-                      <property role="2Ry0Am" value="code"/>
-                      <node concept="2Ry0Ak" id="SSBTh98utV" role="2Ry0An">
                         <property role="2Ry0Am" value="buildscripts"/>
                         <node concept="2Ry0Ak" id="SSBTh98utW" role="2Ry0An">
-                          <property role="2Ry0Am" value="solutions"/>
-                          <node concept="2Ry0Ak" id="SSBTh98utX" role="2Ry0An">
-                            <property role="2Ry0Am" value="${context.buildModule.models[0].name}"/>
-                            <node concept="2Ry0Ak" id="SSBTh98utY" role="2Ry0An">
-                              <property role="2Ry0Am" value="source_gen"/>
-                              <node concept="2Ry0Ak" id="SSBTh98utZ" role="2Ry0An">
-                                ${buildModuleToOutputFolder(context, "${context.ideFileName()}64.vmoptions", "SSBTh98uu0")}
-                              </node>
-                            </node>
+                          <property role="2Ry0Am" value="source_gen"/>
+                          <node concept="2Ry0Ak" id="SSBTh98utZ" role="2Ry0An">
+                            ${buildModuleToOutputFolder(context, "${context.ideFileName()}64.vmoptions", "SSBTh98uu0")}
                           </node>
                         </node>
-                      </node>
                     </node>
                   </node>
                   <node concept="2${'$'}htT0" id="SSBTh98uu7" role="28jJR8">

@@ -7,7 +7,7 @@ import org.intellij.lang.annotations.Language
 fun buildMpsRCPNode(context: LanguageGenerationContext): String = """
     <node concept="1l3spW" id="SSBTh98un7">
       <property role="TrG5h" value="${context.projectDescription.artifactId}_RCP"/>
-      <property role="2DA0ip" value="../../../.."/>
+      <property role="2DA0ip" value="../"/>
       <property role="turDy" value="build-rcp.xml"/>
       <node concept="10PD9b" id="SSBTh98un8" role="10PD9s"/>
       <node concept="3b7kt6" id="SSBTh98un9" role="10PD9s"/>
