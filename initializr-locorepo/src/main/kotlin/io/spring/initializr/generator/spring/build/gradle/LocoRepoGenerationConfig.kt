@@ -19,7 +19,9 @@ import io.spring.initializr.generator.buildsystem.BuildItemResolver
 import io.spring.initializr.generator.buildsystem.MavenRepository
 import io.spring.initializr.generator.buildsystem.MpsBuild
 import io.spring.initializr.generator.buildsystem.MpsBuildSystem
-import io.spring.initializr.generator.buildsystem.gradle.*
+import io.spring.initializr.generator.buildsystem.gradle.GradleBuildSystem
+import io.spring.initializr.generator.buildsystem.gradle.KotlinDslGradleBuildWriter
+import io.spring.initializr.generator.buildsystem.gradle.KotlinDslGradleSettingsWriter
 import io.spring.initializr.generator.condition.ConditionalOnBuildSystem
 import io.spring.initializr.generator.io.IndentingWriterFactory
 import io.spring.initializr.generator.project.ProjectDescription
@@ -81,7 +83,7 @@ class LocoRepoGenerationConfig(private val indentingWriterFactory: IndentingWrit
     fun settingsGradleProjectContributor(
         build: MpsBuild,
         context: MpsProjectGenerationContext,
-        settingsWriter: GradleMultiProjectSettingsWriter): SettingsGradleProjectContributor {
+        settingsWriter: KotlinDslGradleSettingsWriter): SettingsGradleProjectContributor {
         return SettingsGradleProjectContributor(build, indentingWriterFactory,
             settingsWriter, "settings.gradle.kts"
         )

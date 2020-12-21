@@ -1,6 +1,7 @@
 package io.spring.initializr.generator.spring.build.gradle
 
 import io.spring.initializr.generator.buildsystem.MpsBuild
+import io.spring.initializr.generator.buildsystem.gradle.KotlinDslGradleSettingsWriter
 import io.spring.initializr.generator.buildsystem.gradle.MpsBuildWriter
 import io.spring.initializr.generator.condition.ConditionalOnLanguage
 import io.spring.initializr.locorepo.contributors.*
@@ -54,4 +55,8 @@ class LocoRepoModelGenerationConfig {
     @Bean
     fun modelFileContributor(context: ModelGenerationContext) =
             ModelFileContributor(context)
+
+    @Bean
+    fun kotlinDslGradleSettingsWriter(): KotlinDslGradleSettingsWriter =
+        KotlinDslGradleSettingsWriter()
 }

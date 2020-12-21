@@ -1,7 +1,7 @@
 package io.spring.initializr.generator.spring.build.gradle
 
 import io.spring.initializr.generator.buildsystem.MpsBuild
-import io.spring.initializr.generator.buildsystem.gradle.GradleMultiProjectSettingsWriter
+import io.spring.initializr.generator.buildsystem.gradle.GradleLanguageMultiProjectSettingsWriter
 import io.spring.initializr.generator.buildsystem.gradle.MpsBuildWriter
 import io.spring.initializr.generator.buildsystem.gradle.MpsLanguageGradlePluginCustomizer
 import io.spring.initializr.generator.buildsystem.gradle.MpsLanguageGradleTaskCustomizer
@@ -85,6 +85,6 @@ class LocoRepoLanguageGenerationConfig {
         MpsLanguageGradleTaskCustomizer()
 
     @Bean
-    fun gradleMultiProjectSettingsWriter(context: MpsProjectGenerationContext) : GradleMultiProjectSettingsWriter =
-        GradleMultiProjectSettingsWriter(context)
+    fun gradleMultiProjectSettingsWriter(context: MpsProjectGenerationContext) : GradleLanguageMultiProjectSettingsWriter =
+        GradleLanguageMultiProjectSettingsWriter(context)
 }
