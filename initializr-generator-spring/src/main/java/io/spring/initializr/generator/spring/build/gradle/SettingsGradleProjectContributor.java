@@ -42,7 +42,7 @@ public class SettingsGradleProjectContributor implements ProjectContributor {
 
 	private final String settingsFileName;
 
-	SettingsGradleProjectContributor(GradleBuild build, IndentingWriterFactory indentingWriterFactory,
+	public SettingsGradleProjectContributor(GradleBuild build, IndentingWriterFactory indentingWriterFactory,
 			GradleSettingsWriter settingsWriter, String settingsFileName) {
 		this.build = build;
 		this.indentingWriterFactory = indentingWriterFactory;

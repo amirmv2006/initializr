@@ -1,6 +1,6 @@
 package io.spring.initializr.locorepo.model
 
-import io.spring.initializr.generator.buildsystem.MpsBuild
+import io.spring.initializr.locorepo.gradlekts.MpsBuild
 import io.spring.initializr.generator.spring.build.BuildCustomizer
 
 class ModelGradleCustomizer: BuildCustomizer<MpsBuild> {
