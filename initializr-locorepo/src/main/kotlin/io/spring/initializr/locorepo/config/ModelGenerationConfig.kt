@@ -23,7 +23,7 @@ class ModelGenerationConfig {
     fun mpsBuildAdditions(build: MpsBuild): InitializingBean {
         return InitializingBean {
             build.plugins().add("generate-models")
-            build.configurations().add("mpsPlugin")
+            build.configurations().add("mpsPlugins")
         }
     }
 
@@ -67,8 +67,8 @@ class ModelGenerationConfig {
         MpsModelGradleTaskCustomizer()
 
     @Bean
-    fun mpsModelGradleRepositoryCustomizer(): MpsModelGradleRepositoryCustomizer =
-        MpsModelGradleRepositoryCustomizer()
+    fun mpsModelGradleRepositoryCustomizer(): MpsModelGradleRepoDepPropCustomizer =
+        MpsModelGradleRepoDepPropCustomizer()
 
     @Bean
     fun mpsModelBuildSrcFileContributor(
