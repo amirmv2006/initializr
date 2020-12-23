@@ -33,6 +33,7 @@ fun GradleTaskContainer.addCustomTask(type: String, task: GradleTask, builderCon
 fun GradleTaskContainer.addKotlinTask(
     name: String,
     type: String? = null,
+    register: Boolean = false,
     registering: Boolean = true,
     dependsOn: List<String> = emptyList(),
     builderConsumer: Consumer<GradleTask.Builder>
@@ -44,7 +45,7 @@ fun GradleTaskContainer.addKotlinTask(
         }
     }
     this.tasks.computeIfAbsent(name) { taskName: String ->
-        val kotlinGradleTask = KotlinGradleTaskBuilder(taskName, type, registering, dependsOn)
+        val kotlinGradleTask = KotlinGradleTaskBuilder(taskName, type, register, registering, dependsOn)
         builderConsumer.accept(kotlinGradleTask)
         kotlinGradleTask
     }

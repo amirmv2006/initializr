@@ -42,11 +42,6 @@ import kotlin.streams.toList
 @Configuration
 @ConditionalOnBuildSystem(value = MpsBuildSystem.ID, dialect = GradleBuildSystem.DIALECT_KOTLIN)
 class SharedGenerationConfig(private val indentingWriterFactory: IndentingWriterFactory) {
-    private val mbeddrRepo = MavenRepository
-            .withIdAndUrl("maven", "https://projects.itemis.de/nexus/content/repositories/mbeddr")
-            .name("maven")
-            .build()
-
     @Bean
     fun mpsBuild(buildItemResolver: ObjectProvider<BuildItemResolver>,
                  buildCustomizersMap: Map<String, BuildCustomizer<*>>): MpsBuild {
@@ -108,6 +103,15 @@ class SharedGenerationConfig(private val indentingWriterFactory: IndentingWriter
     companion object {
         private val BUILD_CUSTOMIZER_BLACK_LIST = listOf("junitJupiterTestStarterContributor",
                 "defaultStarterContributor", "repositoriesBuilderCustomizer", "junit5TestStarterContributor")
-        val MPS_IVY = MavenRepository.withIdAndUrl("mpsIvy", "URL").build()
+        val MPS_IVY: MavenRepository = MavenRepository.withIdAndUrl("mpsIvy", "URL").build()
+
+        val MBEDDR_REPO: MavenRepository = MavenRepository
+            .withIdAndUrl("maven", "https://projects.itemis.de/nexus/content/repositories/mbeddr")
+            .name("maven")
+            .build()
+
+        val JCENTER_REPO: MavenRepository = MavenRepository
+            .withIdAndUrl("jcenter", null)
+            .build()
     }
 }

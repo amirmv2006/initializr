@@ -33,6 +33,9 @@ open class BaseMpsBuildWriter : KotlinDslGradleBuildWriter() {
                 }
             """
         }
+        if (repository.url.isNullOrEmpty()) {
+            return "${repository.id}()"
+        }
         return super.repositoryAsString(repository)
     }
 
@@ -44,12 +47,18 @@ open class BaseMpsBuildWriter : KotlinDslGradleBuildWriter() {
                 writer.print("val ${gradleTask.name} by tasks.")
                 if (kotlinTaskBuilder.registering) {
                     writer.print("registering")
+                } else if (kotlinTaskBuilder.register){
+                    writer.print("register")
                 } else {
                     writer.print("getting")
                 }
                 if (gradleTask.type?.isNotEmpty() == true) {
                     val shortName: String = ClassUtils.getShortName(gradleTask.type!!)
-                    writer.print("($shortName::class)")
+                    if (!kotlinTaskBuilder.register) {
+                        writer.print("($shortName::class)")
+                    } else {
+                        writer.print("<$shortName>(\"${gradleTask.name}\")")
+                    }
                 }
                 writer.println(" {")
                 writer.indented {

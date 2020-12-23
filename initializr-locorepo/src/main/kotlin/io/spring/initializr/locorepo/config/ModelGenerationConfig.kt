@@ -9,8 +9,9 @@ import io.spring.initializr.locorepo.MpsProjectGenerationContext
 import io.spring.initializr.locorepo.dotmps.MpsModelDotMpsContributor
 import io.spring.initializr.locorepo.gradlekts.ModelMpsBuildWriter
 import io.spring.initializr.locorepo.gradlekts.MpsBuild
+import io.spring.initializr.locorepo.gradlekts.MpsModelGradleRepositoryCustomizer
+import io.spring.initializr.locorepo.gradlekts.MpsModelGradleTaskCustomizer
 import io.spring.initializr.locorepo.model.ModelFileContributor
-import io.spring.initializr.locorepo.model.ModelGradleCustomizer
 import io.spring.initializr.locorepo.model.MpsModel
 import org.springframework.beans.factory.InitializingBean
 import org.springframework.context.annotation.Bean
@@ -53,10 +54,6 @@ class ModelGenerationConfig {
         ModelMpsBuildWriter(context)
 
     @Bean
-    fun modelGradleCustomizer() =
-            ModelGradleCustomizer()
-
-    @Bean
     fun mpsModelDotMpsContributor(context: ModelGenerationContext) =
             MpsModelDotMpsContributor(context)
 
@@ -67,4 +64,12 @@ class ModelGenerationConfig {
     @Bean
     fun kotlinDslGradleSettingsWriter(): KotlinDslGradleSettingsWriter =
         KotlinDslGradleSettingsWriter()
+
+    @Bean
+    fun mpsModelGradleTaskCustomizer(): MpsModelGradleTaskCustomizer =
+        MpsModelGradleTaskCustomizer()
+
+    @Bean
+    fun mpsModelGradleRepositoryCustomizer(): MpsModelGradleRepositoryCustomizer =
+        MpsModelGradleRepositoryCustomizer()
 }
