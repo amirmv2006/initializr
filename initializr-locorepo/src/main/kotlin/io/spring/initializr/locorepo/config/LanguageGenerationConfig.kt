@@ -88,4 +88,9 @@ class LanguageGenerationConfig {
     @Bean
     fun gradleMultiProjectSettingsWriter(context: MpsProjectGenerationContext): GradleLanguageMultiProjectSettingsWriter =
         GradleLanguageMultiProjectSettingsWriter(context)
+
+    @Bean
+    fun mpsLanguageBuildSrcFileContributor(
+        context: LanguageGenerationContext
+    ): MpsLanguageBuildSrcFileContributor = MpsLanguageBuildSrcFileContributor(context)
 }

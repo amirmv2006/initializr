@@ -7,10 +7,7 @@ import io.spring.initializr.locorepo.GeneratedMpsModule
 import io.spring.initializr.locorepo.ModelGenerationContext
 import io.spring.initializr.locorepo.MpsProjectGenerationContext
 import io.spring.initializr.locorepo.dotmps.MpsModelDotMpsContributor
-import io.spring.initializr.locorepo.gradlekts.ModelMpsBuildWriter
-import io.spring.initializr.locorepo.gradlekts.MpsBuild
-import io.spring.initializr.locorepo.gradlekts.MpsModelGradleRepositoryCustomizer
-import io.spring.initializr.locorepo.gradlekts.MpsModelGradleTaskCustomizer
+import io.spring.initializr.locorepo.gradlekts.*
 import io.spring.initializr.locorepo.model.ModelFileContributor
 import io.spring.initializr.locorepo.model.MpsModel
 import org.springframework.beans.factory.InitializingBean
@@ -33,33 +30,33 @@ class ModelGenerationConfig {
     @Bean
     fun modelGenerationContext(mpsProjectGenerationContext: MpsProjectGenerationContext): ModelGenerationContext {
         val modelModule = GeneratedMpsModule(
-                id = UUID.randomUUID(),
-                name = mpsProjectGenerationContext.projectQualifiedName(),
-                moduleVersion = 0,
-                models = listOf(
-                    GeneratedMpsModel(
-                        id = UUID.randomUUID(),
-                        name = mpsProjectGenerationContext.projectQualifiedName(),
-                        modelVersion = 0
+            id = UUID.randomUUID(),
+            name = mpsProjectGenerationContext.projectQualifiedName(),
+            moduleVersion = 0,
+            models = listOf(
+                GeneratedMpsModel(
+                    id = UUID.randomUUID(),
+                    name = mpsProjectGenerationContext.projectQualifiedName(),
+                    modelVersion = 0
                 )
-                )
+            )
         )
         return ModelGenerationContext(mpsProjectGenerationContext, modelModule)
     }
 
     @Bean
     fun mpsBuildWriter(
-            context: MpsProjectGenerationContext
+        context: MpsProjectGenerationContext
     ) =
         ModelMpsBuildWriter(context)
 
     @Bean
     fun mpsModelDotMpsContributor(context: ModelGenerationContext) =
-            MpsModelDotMpsContributor(context)
+        MpsModelDotMpsContributor(context)
 
     @Bean
     fun modelFileContributor(context: ModelGenerationContext) =
-            ModelFileContributor(context)
+        ModelFileContributor(context)
 
     @Bean
     fun kotlinDslGradleSettingsWriter(): KotlinDslGradleSettingsWriter =
@@ -72,4 +69,9 @@ class ModelGenerationConfig {
     @Bean
     fun mpsModelGradleRepositoryCustomizer(): MpsModelGradleRepositoryCustomizer =
         MpsModelGradleRepositoryCustomizer()
+
+    @Bean
+    fun mpsModelBuildSrcFileContributor(
+        context: ModelGenerationContext
+    ): MpsModelBuildSrcFileContributor = MpsModelBuildSrcFileContributor(context)
 }

@@ -9,7 +9,8 @@ class MpsModelGradleTaskCustomizer : BuildCustomizer<MpsBuild> {
             "copyMpsPluginsTask",
             dependsOn = listOf("tasks.named(\"fakeBuildNumber\")"),
             register = true,
-            registering = false
+            registering = false,
+            type = "org.gradle.api.tasks.Copy"
         ) { gtb: GradleTask.Builder ->
             gtb.invoke("into", "genExt.pluginLocation!!")
             gtb.nested("mpsPlugins.asFileTree.forEach") {
