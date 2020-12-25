@@ -10,7 +10,7 @@ pipeline {
                   toolName: env.DOCKER_TOOL_NAME) {
             script {
               echo("Running mvn install")
-              sh "mvn install -T 2C --no-transfer-progress -DskipTests -Ddisable-initializr-default-profile -Dmaven.repo.local=m2"
+              sh "mvn clean install -T 2C --no-transfer-progress -DskipTests -Ddisable-initializr-default-profile -Dmaven.repo.local=m2"
             } // script
           } // withDockerContainer
         } // steps
