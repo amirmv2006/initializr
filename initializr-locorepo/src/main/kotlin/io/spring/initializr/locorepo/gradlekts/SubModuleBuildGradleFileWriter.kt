@@ -9,6 +9,11 @@ fun Path.writeSubModuleBuildGradle(context: LanguageGenerationContext) {
         plugins {
             mps
         }
+        
+        mps {
+            artifactName = "${context.projectDescription.artifactId}"
+            buildScriptName = "${context.projectDescription.artifactId}_Plugin"
+        }
 
     """.trimIndent())
 }

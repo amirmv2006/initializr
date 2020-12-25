@@ -8,6 +8,7 @@ class LocoRepoGradleGitIgnoreCustomizer: GitIgnoreCustomizer {
     override fun customize(gitIgnore: GitIgnore) {
         gitIgnore.general.add(".gradle/")
         gitIgnore.general.add("build/")
+        gitIgnore.general.add("build.xml")
         gitIgnore.general.add("/lib")
         gitIgnore.general.add("gradle.properties")
         gitIgnore.general.add("**/startup.properties")

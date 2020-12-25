@@ -27,5 +27,11 @@ class LanguageFileContributor(
         Files.createDirectories(generatorTemplates)
         generatorTemplates.resolve("main@generator.mps").writeGeneratorMps(context)
         langScrRoot.resolve("build.gradle.kts").writeSubModuleBuildGradle(context)
+        val buildSolutionDir = langScrRoot.resolve("buildsolution")
+        Files.createDirectories(buildSolutionDir)
+        buildSolutionDir.resolve("${context.langBuildModule.name}.msd").writeLanguageBuildModule(context)
+        val buildSolutionModelsDir = buildSolutionDir.resolve("models")
+        Files.createDirectories(buildSolutionModelsDir)
+        buildSolutionModelsDir.resolve("${context.langBuildModule.models[0].name}.mps").writeLanguageBuildModel(context)
     }
 }

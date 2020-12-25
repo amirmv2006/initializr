@@ -12,7 +12,8 @@ data class MpsProjectGenerationContext(
 data class LanguageGenerationContext(
     val mpsProjectGenerationContext: MpsProjectGenerationContext,
     val buildModule: GeneratedMpsModule,
-    val language: GeneratedLanguageModule
+    val language: GeneratedLanguageModule,
+    val langBuildModule: GeneratedMpsModule
 ) {
 
     val projectDescription = mpsProjectGenerationContext.projectDescription

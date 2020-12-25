@@ -36,9 +36,10 @@ fun mpsBuildUsedLangs(): String = """
 """.trimIndent()
 
 @Language("XML")
-fun mpsBuildImports(): String = """
+fun mpsBuildImports(context: LanguageGenerationContext): String = """
   <imports>
     <import index="ffeo" ref="r:874d959d-e3b4-4d04-b931-ca849af130dd(jetbrains.mps.ide.build)" />
+    <import index="lbv1" ref="${context.langBuildModule.models[0].modelReference()}" />
   </imports>
 """.trimIndent()
 
@@ -276,7 +277,6 @@ fun mpsBuildRegistryBuildMpsLang(): String = """
       <concept id="8174907532628842428" name="jetbrains.mps.build.mps.structure.BuildMps_Tips" flags="ng" index="3jsGME">
           <child id="8174907532631382423" name="imports" index="3jmSa1" />
       </concept>
-      <concept id="5507251971038816436" name="jetbrains.mps.build.mps.structure.BuildMps_Generator" flags="ng" index="1yeLz9" />
       <concept id="7753544965996377997" name="jetbrains.mps.build.mps.structure.BuildMps_Branding" flags="ng" index="1zClus">
           <property id="3497141547781541445" name="minor" index="2OjLBK" />
           <property id="3497141547781541444" name="major" index="2OjLBL" />
@@ -302,9 +302,6 @@ fun mpsBuildRegistryBuildMpsLang(): String = """
         <child id="8137134783396676835" name="location" index="1HemKq" />
       </concept>
       <concept id="3189788309731840247" name="jetbrains.mps.build.mps.structure.BuildMps_Solution" flags="ng" index="1E1JtA" />
-      <concept id="3189788309731840248" name="jetbrains.mps.build.mps.structure.BuildMps_Language" flags="ng" index="1E1JtD">
-        <child id="9200313594498201639" name="generator" index="1TViLv" />
-      </concept>
       <concept id="322010710375871467" name="jetbrains.mps.build.mps.structure.BuildMps_AbstractModule" flags="ng" index="3LEN3z">
         <property id="8369506495128725901" name="compact" index="BnDLt" />
         <property id="322010710375892619" name="uuid" index="3LESm3" />

@@ -2,6 +2,7 @@ package io.spring.initializr.locorepo.gradlekts
 
 import io.spring.initializr.generator.buildsystem.gradle.GradleBuild
 import io.spring.initializr.generator.buildsystem.gradle.GradleConfigurationContainer
+import io.spring.initializr.generator.buildsystem.gradle.GradleTaskContainer
 import io.spring.initializr.generator.io.IndentingWriter
 import io.spring.initializr.locorepo.MpsProjectGenerationContext
 import io.spring.initializr.locorepo.block
@@ -84,4 +85,36 @@ class LanguageMpsBuildWriter(
         super.writeConfigurations(writer, configurations)
     }
 
+    override fun writeTasks(writer: IndentingWriter, tasks: GradleTaskContainer) {
+        super.writeTasks(writer, tasks)
+        writer.println()
+        writer.println("val jbrSdkVersion = \"11_0_8\"")
+        writer.println("val jbrBuild = \"b1129.2\"")
+        writer.println()
+        writer.block("fun registerJbrTaskFor(os: String): TaskProvider<Copy>") {
+            writer.block("val downloadTask = tasks.register<de.undercouch.gradle.tasks.download.Download>(\"download${'$'}{os}Jbr\")") {
+                writer.println("src(\"https://jetbrains.bintray.com/intellij-jbr/jbrsdk-${'$'}jbrSdkVersion-${'$'}os-x64-${'$'}{jbrBuild}.tar.gz\")")
+                writer.println("dest(file(\"lib/jbr.${'$'}os.tar.gz\"))")
+                writer.println("overwrite(false)")
+            }
+            writer.block("return tasks.register<Copy>(\"copy${'$'}{os}Jbr\")") {
+                writer.println("dependsOn(downloadTask)")
+                writer.println("from(tarTree(\"lib/jbr.${'$'}os.tar.gz\"))")
+                writer.println("into(file(\"lib/jbr-${'$'}os\"))")
+            }
+        }
+        writer.println()
+        writer.print("val osxCopyJbr = registerJbrTaskFor(\"osx\")")
+        writer.println("val linuxCopyJbr = registerJbrTaskFor(\"linux\")")
+        writer.println("val winCopyJbr = registerJbrTaskFor(\"windows\")")
+        writer.println()
+        writer.block("val copyJbr = tasks.register(\"copyJbr\")") {
+            writer.println("dependsOn(osxCopyJbr, linuxCopyJbr, winCopyJbr)")
+        }
+        writer.println()
+        writer.block("val buildRcpDistribJbr by tasks.registering") {
+            writer.println("dependsOn(buildRcpDistrib, copyJbr)")
+            writer.println("antexec(\"build/build-rcpdistrib-jbr.xml\")")
+        }
+    }
 }

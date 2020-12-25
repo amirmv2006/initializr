@@ -128,8 +128,8 @@ fun buildMpsRCPNode(context: LanguageGenerationContext): String = """
           </node>
         </node>
       </node>
-      <node concept="2sgV4H" id="6vUa8TkPb6v" role="1l3spa">
-        <ref role="1l3spb" node="1LFOa1yjA${'$'}U"
+      <node concept="2sgV4H" id="2M3RW7Pnv4W" role="1l3spa">
+        <ref role="1l3spb" to="lbv1:2M3RW7Pnv2s"
           resolve="${context.projectDescription.artifactId}_Plugin"/>
       </node>
       <node concept="2sgV4H" id="SSBTh98unh" role="1l3spa">
@@ -277,7 +277,7 @@ fun buildMpsRCPNode(context: LanguageGenerationContext): String = """
             <property role="28hIV_" value="${context.projectDescription.artifactId}"/>
           </node>
           <node concept="3_I8Xc" id="6vUa8TkPb7i" role="39821P">
-            <ref role="3_I8Xa" node="3PswS${'$'}xWsqQ"
+            <ref role="3_I8Xa" to="lbv1:2M3RW7Pnv2W"
               resolve="${context.projectDescription.artifactId}"/>
           </node>
           <node concept="28u9K_" id="6vUa8TkPb72" role="39821P">

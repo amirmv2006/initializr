@@ -9,7 +9,7 @@ fun Path.writeBuildMps(context: LanguageGenerationContext) {
         <model ref="${context.buildModule.models[0].modelReference()}">
           <persistence version="9" />
           ${mpsBuildUsedLangs()}
-          ${mpsBuildImports()}
+          ${mpsBuildImports(context)}
           <registry>
             ${mpsBuildRegistryBuildLang()}
             ${mpsBuildRegistryCoreLang()}
@@ -17,7 +17,6 @@ fun Path.writeBuildMps(context: LanguageGenerationContext) {
             ${mpsBuildRegistryBuildMpsLang()}
           </registry>
           ${buildMpsBoostrapNode(context)}
-          ${buildMpsPluginNode(context)}
           ${buildMpsRCPNode(context)}
           ${buildMpsRCPDistributionNode(context)}
           ${buildMpsScriptsNode(context)}

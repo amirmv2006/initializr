@@ -59,7 +59,19 @@ class LanguageGenerationConfig {
             name = languageName,
             moduleVersion = 0
         )
-        return LanguageGenerationContext(mpsProjectGenerationContext, buildModule, languageModule)
+        val langBuildModule = GeneratedMpsModule(
+            id = UUID.randomUUID(),
+            name = "${languageName}.build",
+            moduleVersion = 0,
+            models = listOf(
+                GeneratedMpsModel(
+                    id = UUID.randomUUID(),
+                    name = "${languageName}.build",
+                    modelVersion = 0
+                )
+            )
+        )
+        return LanguageGenerationContext(mpsProjectGenerationContext, buildModule, languageModule, langBuildModule)
     }
 
     @Bean

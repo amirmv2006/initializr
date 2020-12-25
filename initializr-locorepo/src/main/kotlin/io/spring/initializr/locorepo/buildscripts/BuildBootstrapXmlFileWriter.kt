@@ -141,6 +141,7 @@ fun Path.writeBuildBootstrapXml(context: LanguageGenerationContext) {
               <library file="${'$'}{artifacts.mps}/plugins/mps-build/languages/build/jetbrains.mps.ide.build.jar" />
               <chunk>
                 <module file="${'$'}{basedir}/buildscripts/${context.buildModule.name}.msd" />
+                <module file="${'$'}{basedir}/code/${context.projectDescription.artifactId}/buildsolution/${context.langBuildModule.name}.msd" />
               </chunk>
               <jvmargs>
                 <arg value="-ea" />
@@ -156,7 +157,19 @@ fun Path.writeBuildBootstrapXml(context: LanguageGenerationContext) {
           
           <target name="makeDependents" />
           
-          <target name="java.compile.${context.buildModule.name}">
+          <target name="java.compile.${context.langBuildModule.name}">
+              <mkdir dir="${'$'}{basedir}/code/${context.projectDescription.artifactId}/buildsolution/source_gen" />
+              <mkdir dir="${'$'}{build.tmp}/java/out/${context.langBuildModule.name}" />
+              <javac destdir="${'$'}{build.tmp}/java/out/${context.langBuildModule.name}" fork="true" encoding="utf8" includeantruntime="false" debug="true">
+                  <compilerarg value="-Xlint:none" />
+                  <src>
+                    <path location="${'$'}{basedir}/code/${context.projectDescription.artifactId}/buildsolution/source_gen" />
+                  </src>
+                  <classpath />
+              </javac>
+          </target>
+
+          <target name="java.compile.${context.buildModule.name}" depends="java.compile.${context.langBuildModule.name}">
             <mkdir dir="${'$'}{basedir}/buildscripts/source_gen" />
             <mkdir dir="${'$'}{build.tmp}/java/out/${context.buildModule.name}" />
             <javac destdir="${'$'}{build.tmp}/java/out/${context.buildModule.name}" fork="true" encoding="utf8" includeantruntime="false" debug="true">
@@ -164,12 +177,13 @@ fun Path.writeBuildBootstrapXml(context: LanguageGenerationContext) {
               <src>
                 <path location="${'$'}{basedir}/buildscripts/source_gen" />
               </src>
-              <classpath />
+              <classpath path="${'$'}{build.tmp}/java/out/${context.langBuildModule.name}" />
             </javac>
           </target>
           
           <target name="cleanSources">
             <delete dir="${'$'}{basedir}/buildscripts/source_gen" />
+            <delete dir="${'$'}{basedir}/code/${context.projectDescription.artifactId}/buildsolution/source_gen" />
           </target>
         </project>
     """.trimIndent())
