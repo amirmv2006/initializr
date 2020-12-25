@@ -55,29 +55,7 @@ fun buildMpsRCPDistributionNode(context: LanguageGenerationContext): String = ""
                     <node concept="2Ry0Ak" id="SSBTh98upJ" role="2Ry0An">
                         <property role="2Ry0Am" value="source_gen"/>
                         <node concept="2Ry0Ak" id="SSBTh98upM" role="2Ry0An">
-                          <property role="2Ry0Am" value="ir"/>
-                          <node concept="2Ry0Ak" id="SSBTh98upN" role="2Ry0An">
-                            <property role="2Ry0Am" value="amv"/>
-                            <node concept="2Ry0Ak" id="SSBTh98upO" role="2Ry0An">
-                              <property role="2Ry0Am" value="os"/>
-                              <node concept="2Ry0Ak" id="SSBTh98upP" role="2Ry0An">
-                                <property role="2Ry0Am" value="snippets"/>
-                                <node concept="2Ry0Ak" id="SSBTh98upQ" role="2Ry0An">
-                                  <property role="2Ry0Am"
-                                    value="${context.projectDescription.artifactId}"/>
-                                  <node concept="2Ry0Ak" id="SSBTh98upR" role="2Ry0An">
-                                    <property role="2Ry0Am" value="ide"/>
-                                    <node concept="2Ry0Ak" id="SSBTh98upS" role="2Ry0An">
-                                      <property role="2Ry0Am" value="build"/>
-                                      <node concept="2Ry0Ak" id="SSBTh98upT" role="2Ry0An">
-                                        <property role="2Ry0Am" value="${context.ideFileName()}.vmoptions"/>
-                                      </node>
-                                    </node>
-                                  </node>
-                                </node>
-                              </node>
-                            </node>
-                          </node>
+                          ${buildModuleToOutputFolder(context, "${context.ideFileName()}.vmoptions","SSBTh98upN")}
                         </node>
                     </node>
                 </node>
