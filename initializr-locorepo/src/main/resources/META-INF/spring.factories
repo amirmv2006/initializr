@@ -1,11 +1,11 @@
 io.spring.initializr.generator.buildsystem.BuildSystemFactory=\
-  io.spring.initializr.generator.buildsystem.MpsBuildSystemFactory
+  io.spring.initializr.locorepo.gradlekts.MpsBuildSystemFactory
 io.spring.initializr.generator.language.LanguageFactory=\
   io.spring.initializr.locorepo.language.MpsLanguageFactory,\
-  io.spring.initializr.locorepo.language.MpsModelFactory
+  io.spring.initializr.locorepo.model.MpsModelFactory
 io.spring.initializr.generator.project.ProjectGenerationConfiguration=\
-  io.spring.initializr.generator.spring.build.gradle.LocoRepoGenerationConfig,\
-  io.spring.initializr.generator.spring.build.gradle.LocoRepoLanguageGenerationConfig,\
-  io.spring.initializr.generator.spring.build.gradle.LocoRepoModelGenerationConfig
+  io.spring.initializr.locorepo.config.SharedGenerationConfig,\
+  io.spring.initializr.locorepo.config.LanguageGenerationConfig,\
+  io.spring.initializr.locorepo.config.ModelGenerationConfig
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  io.spring.initializr.locorepo.config.LocoRepoConfiguration
+  io.spring.initializr.locorepo.config.app.LocoRepoApp

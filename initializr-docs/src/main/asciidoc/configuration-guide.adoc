@@ -419,7 +419,7 @@ By default, Spring Initializr exposes the following resources (all accessed via 
 * `/starter.tgz` generate a complete project structure archived in a tgz
 
 The build system must be defined with a `build` tag providing the name of the
-`BuildSystem` to use (e.g. `maven`, `gradle`).
+`BuildSystem` to use (e.g. `maven`, `gradlekts`).
 
 Additional tags can be provided to further qualify the entry. Besides the mandatory `build`
 tag, a `format` tag is also available to define the format of the project (e.g. `project`
