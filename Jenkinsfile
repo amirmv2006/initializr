@@ -4,9 +4,14 @@ pipeline {
       stage('Compile') {
         agent { label 'master' }
         steps {
+          def jenkinsUid = sh(returnStdout: true, script: 'id -u').trim()
+          echo jenkinsUid
+          // with group docker so that we can run docker inside docker
+          // 'getent group docker' result => groupName:x:GID:...
+          def dockerGid = sh(returnStdout: true, script: 'getent group docker').trim().split(":")[2]
           withDockerContainer(
                   image: "maven:3-jdk-11",
-                  args: '',
+                  args: "-u $jenkinsUid:$dockerGid",
                   toolName: env.DOCKER_TOOL_NAME) {
             script {
               echo("Running mvn install")
@@ -21,9 +26,15 @@ pipeline {
         }
         agent { label 'master' }
         steps {
+          def jenkinsUid = sh(returnStdout: true, script: 'id -u').trim()
+          echo jenkinsUid
+          // with group docker so that we can run docker inside docker
+          // 'getent group docker' result => groupName:x:GID:...
+          def dockerGid = sh(returnStdout: true, script: 'getent group docker').trim().split(":")[2]
+
           withDockerContainer(
                   image: "google/cloud-sdk",
-                  args: '-u root -v /var/run/docker.sock:/var/run/docker.sock',
+                  args: '-u $jenkinsUid:$dockerGid -v /var/run/docker.sock:/var/run/docker.sock',
                   toolName: env.DOCKER_TOOL_NAME) {
             script {
               dir ('initializr-locorepo') {
