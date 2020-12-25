@@ -36,7 +36,7 @@ pipeline {
                 def dockerGid = sh(returnStdout: true, script: 'getent group docker').trim().split(":")[2]
                 withDockerContainer(
                       image: "google/cloud-sdk",
-                      args: '-u $jenkinsUid:$dockerGid -v /var/run/docker.sock:/var/run/docker.sock',
+                      args: "-u $jenkinsUid:$dockerGid -v /var/run/docker.sock:/var/run/docker.sock",
                       toolName: env.DOCKER_TOOL_NAME) {
                     script {
                         dir ('initializr-locorepo') {
