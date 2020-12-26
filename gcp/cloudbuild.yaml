@@ -9,6 +9,7 @@ steps:
       - "--no-transfer-progress"
       - "-DskipTests"
       - "-Ddisable-initializr-default-profile"
+    dir: ""
   - name: maven:3-jdk-11
     id: Maven jib
     env:
