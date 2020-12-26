@@ -9,7 +9,7 @@ steps:
       - "--no-transfer-progress"
       - "-DskipTests"
       - "-Ddisable-initializr-default-profile"
-    dir: ""
+      - "-Dmaven.repo.local=/workspace/m2"
   - name: maven:3-jdk-11
     id: Maven jib
     env:
@@ -19,6 +19,7 @@ steps:
     args:
       - "jib:dockerBuild"
       - "-T 2C"
+      - "-Dmaven.repo.local=/workspace/m2"
   - name: gcr.io/cloud-builders/docker
     args:
       - push
