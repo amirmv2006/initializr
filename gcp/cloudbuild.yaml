@@ -1,13 +1,23 @@
 steps:
   - name: maven:3-jdk-11
     id: Maven build
-    entrypoint: "mvn clean install -T 2C --no-transfer-progress -DskipTests -Ddisable-initializr-default-profile"
+    entrypoint: mvn
+    args:
+      - clean
+      - install
+      - "-T 2C"
+      - "--no-transfer-progress"
+      - "-DskipTests"
+      - "-Ddisable-initializr-default-profile"
   - name: maven:3-jdk-11
     id: Maven jib
     env:
       - LOCOREPO_DOCKER_IMAGE='$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA'
-    entrypoint: "mvn jib:dockerBuild -T 2C"
     dir: "initializr-locorepo"
+    entrypoint: mvn
+    args:
+      - "jib:dockerBuild"
+      - "-T 2C"
   - name: gcr.io/cloud-builders/docker
     args:
       - push
