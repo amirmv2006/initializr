@@ -36,7 +36,6 @@ substitutions:
   _GCR_HOSTNAME: eu.gcr.io
   _PLATFORM: managed
   _SERVICE_NAME: initializr-locorepo
-  _ENTRYPOINT: mvnw clean deploy
 tags:
   - gcp-cloud-build-deploy-cloud-run
   - gcp-cloud-build-deploy-cloud-run-managed
