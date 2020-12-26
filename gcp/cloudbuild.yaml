@@ -1,30 +1,16 @@
 steps:
   - name: maven:3-jdk-11
-    id: Maven build
+    id: build project
     entrypoint: mvn
     args:
       - clean
       - install
+      - "-P jib"
       - "-T 2C"
       - "--no-transfer-progress"
       - "-DskipTests"
       - "-Ddisable-initializr-default-profile"
-      - "-Dmaven.repo.local=/workspace/m2"
-  - name: gcr.io/k8s-skaffold/pack
-    id: Maven jib
-    env:
-      - LOCOREPO_DOCKER_IMAGE='$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA'
-    dir: "initializr-locorepo"
-    entrypoint: /workspace/mvnw
-    args:
-      - "jib:dockerBuild"
-      - "-T 2C"
-      - "-Dmaven.repo.local=/workspace/m2"
-  - name: gcr.io/cloud-builders/docker
-    args:
-      - push
-      - '$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA'
-    id: Push
+      - "-Dimage=$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA"
   - name: gcr.io/google.com/cloudsdktool/cloud-sdk
     args:
       - run
