@@ -15,7 +15,7 @@ steps:
     env:
       - LOCOREPO_DOCKER_IMAGE='$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA'
     dir: "initializr-locorepo"
-    entrypoint: ./mvnw
+    entrypoint: /workspace/mvnw
     args:
       - "jib:dockerBuild"
       - "-T 2C"
