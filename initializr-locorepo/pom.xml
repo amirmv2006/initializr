@@ -180,7 +180,7 @@
         <version>1.7.0</version>
         <configuration>
           <to>
-            <image>gcr.io/loco-repo-298115/${project.artifactId}:latest</image>
+            <image>${env.LOCOREPO_DOCKER_IMAGE}</image>
           </to>
           <container>
             <ports>
